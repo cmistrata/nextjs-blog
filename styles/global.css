@@ -1,11 +1,20 @@
 html,
 body {
+  --body-background-color: rgb(43, 43, 43);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  /* background-color: var(--body-background-color); */
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+svg {
+  fill: white;
 }
 
 * {
@@ -13,7 +22,7 @@ body {
 }
 
 a {
-  color: #0070f3;
+  color: rgb(77, 193, 243);
   text-decoration: none;
 }
 
@@ -24,4 +33,58 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+}
+
+.flex-horizontal {
+  display: flex;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.grow:hover {
+  animation: wiggle 1s linear infinite;
+
+  /* transform: scale(1.1); */
+  /* animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  /* transform: translate3d(0, 0, 0); */
+  /* backface-visibility: hidden;
+  perspective: 1000px; */
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  25% {
+    transform: rotate(3deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(-3deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(0deg) scale(1.1);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+  background-color: rgb(43, 43, 43);
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(90, 90, 90);
+  border-radius: 7px;
 }

@@ -15,9 +15,11 @@
 }
 
 .headingLg {
-  font-size: 1.5rem;
+  font-size: 3.2rem;
   line-height: 1.4;
-  margin: 1rem 0;
+  margin: 0.1rem;
+  /* color: rgb(46, 185, 162); */
+  /* padding-top: 10px; */
 }
 
 .headingMd {
