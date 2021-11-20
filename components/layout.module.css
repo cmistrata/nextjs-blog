@@ -4,78 +4,40 @@
   min-height: 100vh;
 }
 
-.container > * {
+.container > main,
+.container > header {
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
+.background {
+  background-color: rgb(22, 22, 22);
+  height: 8rem;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+
 .backToHome {
-  margin: 3rem 0 0;
+  padding: 1rem 1rem 2rem 2rem;
 }
 
 .sky {
-  height: 20vh;
   width: 100%;
+  height: 100%;
   transform: translateZ(-1);
   position: absolute;
-  background-color: rgb(0, 0, 99);
-}
-
-.ground {
-  z-index: -2;
-  height: 200vh;
-  width: 100%;
-  position: absolute;
-  background-color: rgb(22, 22, 22);
-  top: 20vh;
-  transform: translateZ(-1);
-}
-
-.parallax {
-  perspective: 1px;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  --sun-position: calc(100% - 400px) 150px;
-}
-
-.parallax__layer {
-  /* padding: 100vh 0; */
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.parallax__layerbase {
-  transform: translateZ(-1px) scale(2);
-  z-index: -1;
-  background-color: rgb(22, 22, 22);
-  /* min-height: 200vh; */
-  height: 105%;
-  width: 100vw;
-  top: 40vh;
-  position: fixed;
-  background-image: radial-gradient(
-    at var(--sun-position),
-    rgb(27, 27, 39) 0,
-    rgb(22, 22, 22) 100rem
-  );
-}
-.parallax__layerback {
-  /* transform: ; */
-  z-index: -2;
   background-color: rgb(13, 13, 68);
   background-image: radial-gradient(
-    at var(--sun-position),
+    farthest-corner circle at right 25rem top 4rem,
     rgb(0, 1, 73) 0,
-    rgb(22, 22, 22) 100rem
+    rgb(0, 1, 59) 100%
   );
-  height: 100vh;
-  width: 100vw;
+  z-index: 1;
 }
+
 .title {
   position: absolute;
   left: 50%;
@@ -86,18 +48,17 @@
 }
 
 .cloud {
-  transform: translateZ(-0.5px) scale(1.5);
-
   animation: moveright linear infinite;
   fill: rgba(255, 255, 255, 0.685);
   position: absolute;
-  z-index: -1;
+
+  z-index: 2;
 }
 
 .cloud1 {
   animation-duration: 160s;
   animation-delay: -30s;
-  top: -9.5rem;
+  top: 2.3rem;
   width: 50px;
   height: 50px;
 }
@@ -105,7 +66,7 @@
 .cloud2 {
   animation-duration: 135s;
   animation-delay: -10s;
-  top: -8rem;
+  top: 1.7rem;
   width: 80px;
   height: 80px;
 }
@@ -113,7 +74,7 @@
 .cloud3 {
   animation-duration: 145s;
   animation-delay: -120s;
-  top: -8.6rem;
+  top: 0.6rem;
   width: 70px;
   height: 70px;
 }
@@ -121,7 +82,7 @@
 .cloud4 {
   animation-duration: 153s;
   animation-delay: -100s;
-  top: -8.3rem;
+  top: 0.8rem;
   width: 60px;
   height: 60px;
 }
@@ -129,7 +90,7 @@
 .cloud5 {
   animation-duration: 150s;
   animation-delay: 0s;
-  top: -9rem;
+  top: 1rem;
   width: 55px;
   height: 55px;
 }
@@ -137,7 +98,7 @@
 .cloud6 {
   animation-duration: 160s;
   animation-delay: -120s;
-  top: -7.5rem;
+  top: 2rem;
   width: 45px;
   height: 45px;
 }
@@ -145,7 +106,7 @@
 .cloud7 {
   animation-duration: 145s;
   animation-delay: -90s;
-  top: -7.3rem;
+  top: 0.3rem;
   width: 65px;
   height: 65px;
 }
@@ -153,7 +114,7 @@
 .cloud8 {
   animation-duration: 139s;
   animation-delay: -50s;
-  top: -7rem;
+  top: 0.1rem;
   width: 70px;
   height: 70px;
 }
@@ -161,7 +122,7 @@
 .cloud9 {
   animation-duration: 147s;
   animation-delay: -40s;
-  top: -7.4rem;
+  top: 0.2rem;
   width: 60px;
   height: 60px;
 }
@@ -169,17 +130,17 @@
 .cloud10 {
   animation-duration: 130s;
   animation-delay: -60s;
-  top: -7.9rem;
+  top: 0.5rem;
   width: 90px;
   height: 90px;
 }
 
 @keyframes moveright {
   from {
-    left: -60%;
+    left: -10%;
   }
 
   to {
-    left: 160%;
+    left: 100%;
   }
 }

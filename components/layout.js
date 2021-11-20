@@ -29,32 +29,33 @@ export default function Layout({ children, home, title }) {
   );
   return (
     <ThemeProvider theme={darkTheme}>
-      <div className={styles.parallax}>
-        <div
-          className={`${styles.parallax__layer} ${styles.parallax__layerback}`}
-        />
-        <div
-          className={`${styles.parallax__layer} ${styles.parallax__layerbase}`}
-        />
+      {pageHead}
+
+      {/* background */}
+      <div className={styles.background}>
+        {/* <div className={styles.ground} /> */}
+        <div className={styles.sky} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud1}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud2}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud3}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud7}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud8}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud10}`} />
-        <Paper className={styles.container} elevation={3}>
-          {pageHead}
-          <Header />
-          <main> {children}</main>
-          {!home && (
-            <div className={styles.backToHome}>
-              <Link href="/">
-                <a>← Back to home</a>
-              </Link>
-            </div>
-          )}
-        </Paper>
       </div>
+
+      {/* content */}
+      <Paper className={styles.container} elevation={3}>
+        <Header />
+
+        <main> {children}</main>
+        {!home && (
+          <div className={styles.backToHome}>
+            <Link href="/">
+              <a>← Back to home</a>
+            </Link>
+          </div>
+        )}
+      </Paper>
     </ThemeProvider>
   );
 }

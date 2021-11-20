@@ -1,41 +1,25 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: rgb(18, 21, 31);
+  min-height: 8rem;
+  z-index: 3;
+  position: relative;
+}
+
+.header * {
+  z-index: inherit;
 }
 
 .logos {
   display: inline-grid;
   grid-template-columns: [first] auto [second] auto;
   grid-template-rows: [first] auto [second] auto;
-  margin-top: 10px;
-  padding: 2px;
-  vertical-align: bottom;
-  margin-left: 3px;
-  row-gap: 0px;
+  margin: 10px 0 0 3px;
+  padding: 10px 0 0 8px;
+  height: 5rem;
   column-gap: 13px;
-  /* width: 3rem;
-  height: 3rem; */
-}
-
-.one {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.two {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.three {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.four {
-  grid-column: 2;
-  grid-row: 2;
 }
 
 .navlinks,

@@ -12,17 +12,17 @@ export default function Header(props) {
   return (
     <header className={headerStyles.header}>
       <PersonalDescription />
-      <div className={headerStyles.navlinks}>
+      <nav className={headerStyles.navlinks}>
         <div>
           <a href="/posts">posts</a>
         </div>
         <div>
-          <a href="/posts">projects</a>
+          <a href="/projects">projects</a>
         </div>
         <div>
-          <a href="/posts">profile</a>
+          <a href="/">profile</a>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
@@ -35,28 +35,23 @@ function PersonalDescription(props) {
           <a className={utilStyles.colorInherit}>charlie mistrata</a>
         </Link>
       </h1>
-      <div className={headerStyles.logos}>
-        <div className={headerStyles.one + " grow wiggle"}>
-          <a href="mailto:cmistrata@gmail.com">
-            <EmailIcon sx={{ color: "rgb(255, 99, 211)" }} />
-          </a>
-        </div>
-        <div className={headerStyles.two + " grow"}>
-          <a href="https://www.linkedin.com/in/charlie-mistrata/">
-            <LinkedInIcon sx={{ color: "rgb(31, 117, 255)" }} />
-          </a>
-        </div>
-        <div className={headerStyles.three + " grow"}>
-          <a href="https://github.com/cmistrata">
-            <GitHubIcon sx={{ color: "rgb(27, 204, 139)" }} />
-          </a>
-        </div>
-        <div className={headerStyles.four + " grow"}>
-          <a href="https://random.dog/">
-            <PetsIcon sx={{ color: "rgb(128, 84, 101)" }} />
-          </a>
-        </div>
-      </div>
+      <address className={headerStyles.logos}>
+        <a href="mailto:cmistrata@gmail.com" className="grow">
+          <EmailIcon sx={{ color: "rgb(255, 99, 211)" }} />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/charlie-mistrata/"
+          className="grow"
+        >
+          <LinkedInIcon sx={{ color: "rgb(31, 117, 255)" }} />
+        </a>
+        <a href="https://github.com/cmistrata" className="grow">
+          <GitHubIcon sx={{ color: "rgb(27, 204, 139)" }} />
+        </a>
+        <a href="https://random.dog/" className="grow">
+          <PetsIcon sx={{ color: "rgb(128, 84, 101)" }} />
+        </a>
+      </address>
     </div>
   );
 }
