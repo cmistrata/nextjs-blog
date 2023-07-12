@@ -36,19 +36,19 @@ function PersonalDescription(props) {
         </Link>
       </h1>
       <address className={headerStyles.logos}>
-        <a href="mailto:cmistrata@gmail.com" className="grow">
+        <a href="mailto:cmistrata@gmail.com" className={headerStyles.grow}>
           <EmailIcon sx={{ color: "rgb(255, 99, 211)" }} />
         </a>
         <a
           href="https://www.linkedin.com/in/charlie-mistrata/"
-          className="grow"
+          className={headerStyles.grow}
         >
           <LinkedInIcon sx={{ color: "rgb(31, 117, 255)" }} />
         </a>
-        <a href="https://github.com/cmistrata" className="grow">
+        <a href="https://github.com/cmistrata" className={headerStyles.grow}>
           <GitHubIcon sx={{ color: "rgb(27, 204, 139)" }} />
         </a>
-        <a href="https://random.dog/" className="grow">
+        <a href="https://random.dog/" className={headerStyles.grow}>
           <PetsIcon sx={{ color: "rgb(128, 84, 101)" }} />
         </a>
       </address>
