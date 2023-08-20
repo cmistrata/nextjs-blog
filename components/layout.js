@@ -19,12 +19,12 @@ export const siteTitle = "Charlie Mistrata";
 export default function Layout({ children, home, title }) {
   const pageHead = (
     <Head>
+      <title>{title ?? siteTitle}</title>
       <link rel="icon" href="/favicon.ico" />
       <meta
         name="description"
         content="Help I've been trapped in this website and can only communicate through the HTML meta element, please before it's too la"
       />
-      <title>{title ?? siteTitle}</title>
     </Head>
   );
   return (

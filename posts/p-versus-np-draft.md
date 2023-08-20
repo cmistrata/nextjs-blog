@@ -3,8 +3,6 @@ title: "P versus NP"
 date: "2023-01-24"
 ---
 
-# P versus NP from basics
-
 [P versus NP](https://en.wikipedia.org/wiki/P_versus_NP_problem) is one of the, if not the, greatest unsolved problems in mathematics. It questions whether the `NP` and `P` complexity classes are the same. What does this mean? Let's go over it step by step, starting from basics.
 
 ## What's an algorithm?
