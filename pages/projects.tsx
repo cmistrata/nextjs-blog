@@ -1,5 +1,9 @@
 import Layout from "../components/layout";
 
 export default function Home({ allPostsData }) {
-  return <Layout home>My projects: (nothing)</Layout>;
+  return (
+    <Layout home title="projects">
+      My projects: (nothing)
+    </Layout>
+  );
 }

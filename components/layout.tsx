@@ -16,7 +16,13 @@ const darkTheme = createTheme({
 });
 export const siteTitle = "Charlie Mistrata";
 
-export default function Layout({ children, home, title }) {
+interface LayoutProps {
+  children: any;
+  home?: boolean;
+  title: string;
+}
+
+export default function Layout({ children, home = false, title }: LayoutProps) {
   const pageHead = (
     <Head>
       <title>{title ?? siteTitle}</title>

@@ -9,7 +9,7 @@ const postsDirectory = path.join(process.cwd(), "posts");
 export function getSortedPostsData() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const allPostsData: any = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, "");
 
@@ -26,6 +26,7 @@ export function getSortedPostsData() {
       ...matterResult.data,
     };
   });
+
   // Sort posts by date
   return allPostsData.sort(({ date: a }, { date: b }) => {
     if (a < b) {
@@ -57,7 +58,7 @@ export function getAllPostIds() {
   return fileNames.map((fileName) => fileName.replace(/\.md$/, ""));
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
@@ -66,6 +67,7 @@ export async function getPostData(id) {
 
   // Use remark to convert markdown into HTML string
   const processedContent = await remark()
+    // @ts-ignore
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
