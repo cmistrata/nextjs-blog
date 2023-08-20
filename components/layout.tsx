@@ -1,12 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "./layout.module.css";
 import Paper from "@mui/material/Paper";
-import utilStyles from "../styles/utils.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import Header from "./header";
-import { css } from "@emotion/react";
 import CloudIcon from "@mui/icons-material/Cloud";
 
 const darkTheme = createTheme({
