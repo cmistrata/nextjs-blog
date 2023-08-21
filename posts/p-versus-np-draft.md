@@ -1,35 +1,42 @@
 ---
-title: "P versus NP"
+title: "Understanding P vs NP from basics"
 date: "2023-01-24"
 ---
 
 [P versus NP](https://en.wikipedia.org/wiki/P_versus_NP_problem) is one of the, if not the, greatest unsolved problems in mathematics. It questions whether the `NP` and `P` complexity classes are the same. What does this mean? Let's go over it step by step, starting from basics.
 
+## Table of contents
+
 ## What's an algorithm?
 
-An **algorithm** is an outlined way of solving a problem. You can think of it as a step by step process that you (or usually a computer) can follow to find a solution to a problem.
+An **algorithm** is an outlined way of solving a problem. You can think of it as a step by step process that you can follow to find a solution to a problem.
 
 For example, say you want to sort a deck of `N` cards with unique values. A simple algorithm for this problem is the following:
 
 1. Search the deck for the smallest card.
 2. Put that card on top of a new sorted deck.
-3. Go back to step `1` until there are no cards left in the original deck.
+3. Continue running steps 1 and 2 until there are no cards left in the original deck.
 
-Algorithms today are mostly in the context of code, which makes sense as computers are able to follow rigorous steps much more quickly and reliably than people. However, you might have some algorithms you follow yourself when solving problems, for exmaple sorting a deck like above, long division, and the [wall follower](https://en.wikipedia.org/wiki/Maze-solving_algorithm#Wall_follower) maze strategy are all examples of algorithms.
+Algorithms today are mostly in the context of code, which makes sense as computers are able to follow rigorous steps much more quickly and reliably than people.
 
 ## Time complexity
 
-Different algorithms take different amounts of time to run. The **time complexity** of an algorithm describes how long it takes based on how large the instance of a problem is. For
+Different algorithms take different amounts of time to run. The **time complexity** of an algorithm describes how long it takes based on how large the instance of a problem is.
 
-Computer scientists are often particularly interested in the **worst case time complexity** of an algorithm -- that is, how long it takes to run it based on the worst/unluckiest possible input.
+<details>
+<summary>Extra details: worst case time complexity</summary>
+
+Computer scientists are often particularly interested in the **worst case time complexity** of an algorithm — that is, how long it takes to run it based on the worst/unluckiest possible input.
 
 For example, given the problem again to sort a deck of cards, say each time we search the deck for the smallest card we stop searching if we find a card with value exactly 1 greater than the card at the top of our sorted deck. For example, if the top card our sorted deck is a `2`, and we find a `3` in the original deck, we know this is the next card and can stop searching.
 
 A particularly difficult input to this problem, and the one we'd use to determine the worst case time complexity, is a deck of cards that is in reverse order; each time we search the deck, we have to go through the entire deck to find the next smallest card!
 
-### Big O notation
+</details>
 
-The worst case time complexity of an algorithm is usually expressed in [Big-O notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation). This is shown as `O(f(N))`, where N is the size of the problem input. Our algorithm to sort cards would be `O(N`<sup>`2`</sup>`)`: we have to search a deck of `N` cards to get the smallest card `N` times. As another example, finding the smallest card in a deck would be `O(N)`: look at every card and keep track of the smallest.
+#### Big O notation
+
+The time complexity of an algorithm is usually expressed in [Big-O notation](https://www.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-o-notation). This is shown as `O(f(N))`, where N is the size of the problem input. Our algorithm to sort cards would be `O(N`<sup>`2`</sup>`)`: we have to search a deck of `N` cards to get the smallest card `N` times. As another example, finding the smallest card in a deck would be `O(N)`: look at every card and keep track of the smallest.
 
 For sorting, in actuality the size of the deck decreases each time we search it, meaning on average we're only searching a deck of `N/2` cards. However, big O notation doesn't care about coefficients like `1/2`, and we basically round `N/2` up to `N` in the expression of the complexity.
 
