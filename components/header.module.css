@@ -17,7 +17,7 @@
   grid-template-columns: [first] auto [second] auto;
   grid-template-rows: [first] auto [second] auto;
   margin: 10px 0 0 3px;
-  padding: 10px 0 0 8px;
+  padding: 7px 0 0 22px;
   height: 5rem;
   column-gap: 13px;
 }

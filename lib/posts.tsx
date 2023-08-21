@@ -1,8 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import remark from "remark";
-import html from "remark-html";
+import remarkToc from "remark-toc";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -58,19 +61,24 @@ export function getAllPostIds() {
   return fileNames.map((fileName) => fileName.replace(/\.md$/, ""));
 }
 
+async function convertToHtmlString(markdownString: string): Promise<string> {
+  const markdownToHtmlProcessor = unified()
+    .use(remarkParse) // convert markdown to
+    .use(remarkRehype, { allowDangerousHtml: true }) // convert markdown to hast (html abstract syntaxt tree)
+    .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to string
+  const processedContent = await markdownToHtmlProcessor.process(
+    markdownString
+  );
+  return processedContent.toString();
+}
+
 export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
-
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    // @ts-ignore
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  const contentHtml = await convertToHtmlString(matterResult.content);
 
   // Combine the data with the id and contentHtml
   return {

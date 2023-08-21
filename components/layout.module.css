@@ -29,7 +29,7 @@
   height: 100%;
   transform: translateZ(-1);
   position: absolute;
-  background-color: rgb(37, 122, 164);
+  background-color: rgb(0, 25, 37);
   /* background-image: radial-gradient(
     farthest-corner circle at right 25rem top 4rem,
     rgb(0, 1, 73) 0,
@@ -49,7 +49,7 @@
 
 .cloud {
   animation: moveright linear infinite;
-  fill: rgba(255, 255, 255, 0.685);
+  fill: rgba(255, 255, 255, 0.023);
   position: absolute;
 
   z-index: 2;

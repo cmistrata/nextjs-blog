@@ -14,14 +14,22 @@ export default function Header(props) {
       <PersonalDescription />
       <nav className={headerStyles.navlinks}>
         <div>
-          <a href="/posts">posts</a>
+          <Link href="/">profile</Link>
         </div>
         <div>
+          <Link href="/posts">posts</Link>
+        </div>
+        <div>
+          <Link
+            href="https://www.reddit.com/r/survivor/comments/gg06jd/nick_voted_out_but_everyone_is_nick/"
+            target="blank"
+          >
+            probst
+          </Link>
+        </div>
+        {/* <div>
           <a href="/projects">projects</a>
-        </div>
-        <div>
-          <a href="/">profile</a>
-        </div>
+        </div> */}
       </nav>
     </header>
   );
@@ -31,26 +39,26 @@ function PersonalDescription(props) {
   return (
     <div className="flex-horizontal">
       <h1 className={utilStyles.headingLg}>
-        <Link href="/">
-          <a className={utilStyles.colorInherit}>charlie mistrata</a>
+        <Link href="/" className={utilStyles.colorInherit}>
+          charlie mistrata
         </Link>
       </h1>
       <address className={headerStyles.logos}>
-        <a href="mailto:cmistrata@gmail.com" className={headerStyles.grow}>
+        <Link href="mailto:cmistrata@gmail.com" className={headerStyles.grow}>
           <EmailIcon sx={{ color: "rgb(255, 99, 211)" }} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.linkedin.com/in/charlie-mistrata/"
           className={headerStyles.grow}
         >
           <LinkedInIcon sx={{ color: "rgb(31, 117, 255)" }} />
-        </a>
-        <a href="https://github.com/cmistrata" className={headerStyles.grow}>
+        </Link>
+        <Link href="https://github.com/cmistrata" className={headerStyles.grow}>
           <GitHubIcon sx={{ color: "rgb(27, 204, 139)" }} />
-        </a>
-        <a href="https://random.dog/" className={headerStyles.grow}>
+        </Link>
+        <Link href="https://random.dog/" className={headerStyles.grow}>
           <PetsIcon sx={{ color: "rgb(128, 84, 101)" }} />
-        </a>
+        </Link>
       </address>
     </div>
   );
