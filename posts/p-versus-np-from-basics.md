@@ -43,9 +43,9 @@ For sorting, in actuality the size of the deck decreases each time we search it,
 
 ## Time complexity classes
 
-We can use time complexity to group many seemingly different problems into **time complexity classes** by how long algorithms for them take to run into .
+We can use time complexity to group many seemingly different problems into **time complexity classes** by how long algorithms for them take to run.
 
-As a simple example, **linear complexity**, expressed as O(N), is a time complexity class grouping problems with algorithms that take time to run directly proportional to the size of the input. These are usually algorithms that just need to look over all the input once. For example, finding the smallest card in a deck of N cards by searching all the cards, or finding a matching sock during laundry by searching N other socks would be algorithms with linear complexity.
+As a simple example, **linear complexity** is a time complexity class grouping problems with algorithms that take time to run directly proportional to the size of the input. These are usually algorithms that just need to look over all the input once. For example, finding the smallest card in a deck of N cards by searching all the cards, or finding a matching sock during laundry by searching N other socks would be algorithms with linear complexity.
 
 ## P and NP time complexity classes
 
@@ -88,7 +88,7 @@ For example, take the following two problems
 1. Sort a deck of cards with unique values.
 2. Sort a deck of cards that may have repeated values.
 
-Problem 1 can be reduced to problem 2; given a deck of unique cards, we can just act like we don't know if our deck has repeated cards in it.
+Problem 1 can be reduced to problem 2: given a deck of unique cards, we can just act like we don't know if our deck has repeated cards in it.
 
 However, problem 2 is not reducible to problem 1. We can't just ignore the fact that our deck can have repeated values, and an algorithm for the first problem might fail on an instance of the second. Let's say you have an algorithm for problem 1 that stops searching once it has found the next smallest value: e.g., if you find an 8, put it on top of your sorted deck, and then find a 9, you can stop searching and put the 9 on top of the deck. If our deck has repeated values (possibly another 8), this algorithm would fail.
 
@@ -107,7 +107,7 @@ Unlike P and NP, **NP-hard** is a complexity class describing how difficult a pr
 
 **NP-complete** describes problems that are **NP-hard** and also in **NP**. In other words, they are the hardest **NP** problems, and we have found a bunch of them.
 
-Because these problems are equally hard, any NP-complete problem can be reduced (reformulated as) as a problem instance of any other NP-complete problem. This is surprising as NP-complete contains many seemingly different problems. Two famous problems in NP-complete are the [traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)—given a list of cities with roads between them, what's the shortest route I can take from a home city to visit every city and then return home—and the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem)—given a set of objects each with a size and value and a backpack/knapsack of fixed size, what's the maximum amount of value we can fit into the backpack. Because these problems are both NP-complete, even though they seem very different, an algorithm for one can also be used to solve the other.
+Because these problems are equally hard, any NP-complete problem can be reduced to (reformulated as) a problem instance of any other NP-complete problem. This is surprising as NP-complete contains many seemingly different problems. Two famous problems in NP-complete are the [traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)—given a list of cities with roads between them, what's the shortest route I can take from a home city to visit every city and then return home?—and the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem)—given a set of objects each with a size and value and a backpack/knapsack of fixed size, what's the maximum amount of value we can fit into the backpack? Because these problems are both NP-complete, even though they seem very different, an algorithm for one can also be used to solve the other.
 
 [Wikipedia has a list of problems](https://en.wikipedia.org/wiki/List_of_NP-complete_problems) that have been discovered to be NP-complete. Some particularly interesting ones are:
 
@@ -118,4 +118,4 @@ Because these problems are equally hard, any NP-complete problem can be reduced 
 - [Various games and puzzles](https://en.wikipedia.org/wiki/List_of_NP-complete_problems#Games_and_puzzles)
 - [Boolean Satisfiability/SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem): the first discovered NP-Complete problem, although a bit technical for this article.
 
-If you are able to find a polynomial time (P) algorithm for any of the above problems, or prove that any one of them can't be solved in polynomial time, then congratulations! You have done what no mathematician could and solved the problem of P vs NP—and also are eligible to [redeem a million dollars](https://www.claymath.org/millennium-problems/) if you'd like and maybe send me a finder's fee. It seems like doing this should not be that hard (at least to me), however the inability of anyone to come up with any efficient algorithms or proof that none exists certainly speaks to the contrary.P vs NP continues to be a problem with a seemingly obvious answer and seemingly easy way of proving it that defies solving.
+If you are able to find a polynomial time (P) algorithm for any of the above problems, or prove that any one of them can't be solved in polynomial time, then congratulations! You have done what no mathematician could and solved the problem of P vs NP—and also are eligible to [redeem a million dollars](https://www.claymath.org/millennium-problems/) if you'd like and maybe send me a finder's fee. It seems like doing this should not be that hard (at least to me), however the inability of anyone to come up with any efficient algorithms or proof that none exists certainly speaks to the contrary. P vs NP continues to be a problem with a seemingly obvious answer and seemingly easy way of proving it that defies solving.
