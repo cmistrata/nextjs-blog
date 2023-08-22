@@ -13,8 +13,8 @@ export default function Home({ allPostsData }) {
 
       <p>
         I use this site as a place to dump some of my thoughts and explanations
-        for stuff I find interesting into posts. You can reach out to me at
-        cmistrata@gmail.com or at my{" "}
+        for stuff I find interesting into <Link href="/posts">posts</Link>. You
+        can reach out to me at cmistrata@gmail.com or at my{" "}
         <Link href="https://www.linkedin.com/in/charlie-mistrata/">
           LinkedIn
         </Link>
