@@ -51,23 +51,27 @@ As a simple example, **linear complexity**, expressed as O(N), is a time complex
 
 **P** and **NP** are both time complexity classes that describe how _easy_ (provide an upper bound on how long it takes to solve a problem but not a lower bound) a problem is to do.
 
-### P (polynomial time) complexity
+### P (deterministic polynomial time) complexity
 
-**P** is short for **polynomial time** (or sometimes described as **determenistic polynomial time**). Polynomial time describes problems with algorithms that take at most exponential (N<sup>c</sup> where c is a constant) amount of time to run. Harder problems in this category can often be solved by trying combinations of input elements with a constant size. For example, say you have a list of N numbers, and you want to find 3 numbers in the list that add up to 17. You could check every combination of 3 numbers in the list (N<sup>3</sup> combinations) until you find a combination that adds to 17, putting this problem in P time.
+**P** is short for **determenistic polynomial time** **polynomial time**, or more succintly **polynomial time**. Polynomial time describes problems with algorithms that take at most an exponential (N<sup>c</sup> where c is a constant) amount of time to run using a [deterministic Turing machine](https://en.wikipedia.org/wiki/Turing_machine). A deterministic Turing machine is basically a real-word computer, including whatever one you're reading this article on.
+
+Harder problems in this category can often be solved by trying combinations of input elements with a constant size. For example, say you have a list of N numbers, and you want to find 3 numbers in the list that add up to 17. You could check every combination of 3 numbers in the list (N<sup>3</sup> combinations) until you find a combination that adds to 17, putting this problem in P time.
 
 ### NP (non-deterministic polynomial time)
 
 **NP** is short for **non-deterministic polynomial time** (and _not_ "not polynomial time" which you might guess). These are problems that can be solved in polynomial time by a [non-deterministic Turing machine](https://en.wikipedia.org/wiki/Nondeterministic_Turing_machine).
 
-A non-deterministic Turing machine is a computer that can explore multiple solutions simultaneously, but it's easiest to think about it as a computer that always gets as lucky as possible. Consequentially, you can think of NP problems as being solvable in polynomial time as long as you're as lucky as possible when running the algorithm.
+A **non-deterministic Turing machine** is a computer that can explore multiple solutions simultaneously. For example, say you want to find a route through a corn maze; when you reach a branching path in the maze, you could clone yourself and try out both paths, and keep doing this every time you reach a new branch in the maze until one of your clones finds the exit. Obviously this is not actually possible, but it would be nice, and you could probably set a corn maze world record or something among other benefits.
 
-For example, say you want to find a route through a maze. A non-deterministic solver with luck on their side would just pick the correct turn whenever confronted with a branching path, getting through the maze on their first try. Or take the problem from earlier about finding three numbers in a list that add to 17. A non-determintic solver would just pick three numbers from the list, and because they're lucky they end up being the right three numbers!
+It can be easier to think about a non-deterministic Turing machine as a deterministic Turing machine that always gets as lucky as possible, which is an equivalent definition. Consequentially, you can think of NP (non-deterministic polynomial time) problems as being solvable in polynomial time as long as you're as lucky as possible when running the algorithm.
 
-However, no matter how lucky you are, you still need to verify the solution you come up with is correct. In fact, this ends up becoming really the only time you need to spend solving any problem. **So equivalently and more simply, NP describes problems with solutions that can be verified in polynomial time.** For our problem of finding 3 numbers that sum to 17, this would be the time it takes to add 3 numbers.
+Take the problem from earlier about finding three numbers in a list that add to 17. A non-deterministic solver would just pick three numbers from the list, and because they're lucky they end up being the right three numbers!
+
+However, no matter how lucky you are when solving a problem, you still need to verify the solution you come up with is correct. In fact, this ends up becoming the only amount of time you need to spend solving any problem. For our problem of finding 3 numbers that sum to 17, this would be the time it takes to add 3 numbers. **So equivalently and more simply, NP describes problems with solutions that can be verified in polynomial time.**
 
 ### P versus NP
 
-The NP complexity class is by definition at least as difficult as the P complexity class. **P versus NP** asks if the **P** and **NP** time complexity classes are the same. In other words, **if you can verify the solution to a problem in polynomial time, can you also necessarily find a solution in polynomial time?**
+The NP complexity class is by definition larger than / at least as difficult as the P complexity class. **P versus NP** asks if the **P** and **NP** time complexity classes are the same. In other words, **if you can verify the solution to a problem in polynomial time, can you also necessarily find a solution in polynomial time?**
 
 The obvious answer to this question might seem like no — after all, finding the answer to a problem is much harder than checking if it's correct! And most mathemeticians and computer scientists believe the answer is probably no, but none of them have been able to prove it either way.
 
