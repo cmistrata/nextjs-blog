@@ -49,8 +49,8 @@
 
 .cloud {
   animation: moveright linear infinite;
-  fill: rgba(255, 255, 255, 0.023);
-  position: absolute;
+  fill: rgba(255, 255, 255, 0.023) !important;
+  position: absolute !important;
 
   z-index: 2;
 }
@@ -58,81 +58,81 @@
 .cloud1 {
   animation-duration: 160s;
   animation-delay: -30s;
-  top: 2.3rem;
-  width: 50px;
-  height: 50px;
+  top: 2.3rem !important;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .cloud2 {
   animation-duration: 135s;
   animation-delay: -10s;
-  top: 1.7rem;
-  width: 80px;
-  height: 80px;
+  top: 1.7rem !important;
+  width: 80px !important;
+  height: 80px !important;
 }
 
 .cloud3 {
   animation-duration: 145s;
   animation-delay: -120s;
-  top: 0.6rem;
-  width: 70px;
-  height: 70px;
+  top: 0.6rem !important;
+  width: 70px !important;
+  height: 70px !important;
 }
 
 .cloud4 {
   animation-duration: 153s;
   animation-delay: -100s;
-  top: 0.8rem;
-  width: 60px;
-  height: 60px;
+  top: 0.8rem !important;
+  width: 60px !important;
+  height: 60px !important;
 }
 
 .cloud5 {
   animation-duration: 150s;
   animation-delay: 0s;
-  top: 1rem;
-  width: 55px;
-  height: 55px;
+  top: 1rem !important;
+  width: 55px !important;
+  height: 55px !important;
 }
 
 .cloud6 {
   animation-duration: 160s;
   animation-delay: -120s;
-  top: 2rem;
-  width: 45px;
-  height: 45px;
+  top: 2rem !important;
+  width: 45px !important;
+  height: 45px !important;
 }
 
 .cloud7 {
   animation-duration: 145s;
   animation-delay: -90s;
-  top: 0.3rem;
-  width: 65px;
-  height: 65px;
+  top: 0.3rem !important;
+  width: 65px !important;
+  height: 65px !important;
 }
 
 .cloud8 {
   animation-duration: 139s;
   animation-delay: -50s;
-  top: 0.1rem;
-  width: 70px;
-  height: 70px;
+  top: 0.1rem !important;
+  width: 70px !important;
+  height: 70px !important;
 }
 
 .cloud9 {
   animation-duration: 147s;
   animation-delay: -40s;
-  top: 0.2rem;
-  width: 60px;
-  height: 60px;
+  top: 0.2rem !important;
+  width: 60px !important;
+  height: 60px !important;
 }
 
 .cloud10 {
   animation-duration: 130s;
   animation-delay: -60s;
-  top: 0.5rem;
-  width: 90px;
-  height: 90px;
+  top: 0.5rem !important;
+  width: 90px !important;
+  height: 90px !important;
 }
 
 @keyframes moveright {
