@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 export default function Document() {
   return (
@@ -10,10 +11,12 @@ export default function Document() {
           content="Help I've been trapped in this website and can only communicate through the HTML meta element, please before it's too la"
         />
       </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
+      <StyledEngineProvider injectFirst>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </StyledEngineProvider>
     </Html>
   );
 }
