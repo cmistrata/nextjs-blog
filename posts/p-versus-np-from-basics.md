@@ -53,7 +53,7 @@ As a simple example, **linear complexity**, expressed as O(N), is a time complex
 
 ### P (deterministic polynomial time) complexity
 
-**P** is short for **determenistic polynomial time** **polynomial time**, or more succintly **polynomial time**. Polynomial time describes problems with algorithms that take at most an exponential (N<sup>c</sup> where c is a constant) amount of time to run using a [deterministic Turing machine](https://en.wikipedia.org/wiki/Turing_machine). A deterministic Turing machine is basically a real-word computer, including whatever one you're reading this article on.
+**P** is short for **deterministic polynomial time** **polynomial time**, or more succinctly **polynomial time**. Polynomial time describes problems with algorithms that take at most an exponential (N<sup>c</sup> where c is a constant) amount of time to run using a [deterministic Turing machine](https://en.wikipedia.org/wiki/Turing_machine). A deterministic Turing machine is basically a real-word computer, including whatever one you're reading this article on.
 
 Harder problems in this category can often be solved by trying combinations of input elements with a constant size. For example, say you have a list of N numbers, and you want to find 3 numbers in the list that add up to 17. You could check every combination of 3 numbers in the list (N<sup>3</sup> combinations) until you find a combination that adds to 17, putting this problem in P time.
 
@@ -73,7 +73,7 @@ However, no matter how lucky you are when solving a problem, you still need to v
 
 The NP complexity class is by definition larger than / at least as difficult as the P complexity class. **P versus NP** asks if the **P** and **NP** time complexity classes are the same. In other words, **if you can verify the solution to a problem in polynomial time, can you also necessarily find a solution in polynomial time?**
 
-The obvious answer to this question might seem like no — after all, finding the answer to a problem is much harder than checking if it's correct! And most mathemeticians and computer scientists believe the answer is probably no, but none of them have been able to prove it either way.
+The obvious answer to this question might seem like no — after all, finding the answer to a problem is much harder than checking if it's correct! And most mathematicians and computer scientists believe the answer is probably no, but none of them have been able to prove it either way.
 
 Even more bafflingly, there's a pretty clear outline of how you could prove if P equals or doesn't equal NP, detailed below
 
@@ -90,7 +90,7 @@ For example, take the following two problems
 
 Problem 1 can be reduced to problem 2; given a deck of unique cards, we can just act like we don't know if our deck has repeated cards in it.
 
-However, problem 2 is not reduceable to problem 1. We can't just ignore the fact that our deck can have repeated values, and an algorithm for the first problem might fail on an instance of the second. Let's say you have an algorithm for problem 1 that stops searching once it has found the next smallest value: e.g., if you find an 8, put it on top of your sorted deck, and then find a 9, you can stop searching and put the 9 on top of the deck. If our deck has repeated values (possibly another 8), this algorithm would fail.
+However, problem 2 is not reducible to problem 1. We can't just ignore the fact that our deck can have repeated values, and an algorithm for the first problem might fail on an instance of the second. Let's say you have an algorithm for problem 1 that stops searching once it has found the next smallest value: e.g., if you find an 8, put it on top of your sorted deck, and then find a 9, you can stop searching and put the 9 on top of the deck. If our deck has repeated values (possibly another 8), this algorithm would fail.
 
 If we can reduce an instance of problem 1 to problem 2, we can say problem 2 is at least as hard as problem 1: an algorithm that solves problem 2 could also be used to solve problem 1, but not necessarily vice versa.
 
@@ -103,11 +103,11 @@ And surprisingly, we have found the hardest problem in NP! In fact, we have foun
 
 ### NP-hard and NP-complete
 
-Unlike P and NP, **NP-hard** is a complexity class describing how difficult a problem is. It describes problems that are at least as difficult (take as long or longer to solve) as every other problem in **NP**. These probelms are not necessarily in **NP** themselves.
+Unlike P and NP, **NP-hard** is a complexity class describing how difficult a problem is. It describes problems that are at least as difficult (take as long or longer to solve) as every other problem in **NP**. These problems are not necessarily in **NP** themselves.
 
-**NP-complete** describes problems that are **NP-hard** and also in **NP**. In other words, they are the hardest **NP** problems. We have found a bunch of these problems that represent the difficultest NP problems.
+**NP-complete** describes problems that are **NP-hard** and also in **NP**. In other words, they are the hardest **NP** problems, and we have found a bunch of them.
 
-Bbecause these problems are equally hard, any NP-complete problem can be reduced (reformulated as) as a problem instance of any other NP-complete problem. This is surprising as NP-complete contains many seemingly different problems. Two famous problems in NP-complete are the [traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)—given a list of cities with roads between them, what's the shortest route I can take from a home city to visit every city and then return home—and the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem)—given a set of objects each with a size and value and a backpack/knapsack of fixed size, what's the maximum amount of value we can fit into the backpack. Because these problems are both NP-complete, even though they seem very different, an algorithm for one can also be used to solve the other.
+Because these problems are equally hard, any NP-complete problem can be reduced (reformulated as) as a problem instance of any other NP-complete problem. This is surprising as NP-complete contains many seemingly different problems. Two famous problems in NP-complete are the [traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)—given a list of cities with roads between them, what's the shortest route I can take from a home city to visit every city and then return home—and the [knapsack problem](https://en.wikipedia.org/wiki/Knapsack_problem)—given a set of objects each with a size and value and a backpack/knapsack of fixed size, what's the maximum amount of value we can fit into the backpack. Because these problems are both NP-complete, even though they seem very different, an algorithm for one can also be used to solve the other.
 
 [Wikipedia has a list of problems](https://en.wikipedia.org/wiki/List_of_NP-complete_problems) that have been discovered to be NP-complete. Some particularly interesting ones are:
 
@@ -118,4 +118,4 @@ Bbecause these problems are equally hard, any NP-complete problem can be reduced
 - [Various games and puzzles](https://en.wikipedia.org/wiki/List_of_NP-complete_problems#Games_and_puzzles)
 - [Boolean Satisfiability/SAT](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem): the first discovered NP-Complete problem, although a bit technical for this article.
 
-If you are able to find a polynomial time (P) algorithm for any of the above problems, or prove that any one of them can't be solved in polynomial time, then congratulations! You have done what no mathemetician could and solved the problem of P vs NP—and also are eligible to [redeem a million dollars](https://www.claymath.org/millennium-problems/) if you'd like and maybe send me a finder's fee. It seems like doing this should not be that hard (at least to me), however the inability of anyone to come up with any efficient algorithms or proof that none exists certainy speaks to the contrary.P vs NP continues to be a problem with a seemingly obvious answer and seemingly easy way of proving it that defies solving.
+If you are able to find a polynomial time (P) algorithm for any of the above problems, or prove that any one of them can't be solved in polynomial time, then congratulations! You have done what no mathematician could and solved the problem of P vs NP—and also are eligible to [redeem a million dollars](https://www.claymath.org/millennium-problems/) if you'd like and maybe send me a finder's fee. It seems like doing this should not be that hard (at least to me), however the inability of anyone to come up with any efficient algorithms or proof that none exists certainly speaks to the contrary.P vs NP continues to be a problem with a seemingly obvious answer and seemingly easy way of proving it that defies solving.
