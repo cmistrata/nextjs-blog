@@ -21,7 +21,7 @@ For example, take the following branches in different source strings:
 
 Note that because we are creating a suffix trie, these branches are suffixes of the source string.
 
-**Storing branches implicitly, and not storing actual substrings for them, means it is possible to create a structure of O(n) space (n branches of 1 number each) instead of O(n^2) (n branches of substrings of 1 through n length)**. This _also_ makes it possible to create an algorithm to generate this structure in O(n) time, which Ukkonen's algorithm accomplishes.
+**Storing branches implicitly, and not storing actual substrings for them, means it is possible to create a structure of O(n) space (n branches of 1 number each) instead of O(n<sup>2</sup>) (n branches of substrings of 1 through n length)**. This _also_ makes it possible to create an algorithm to generate this structure in O(n) time, which Ukkonen's algorithm accomplishes.
 
 ## Ukkonen's algorithm's iterative substructure
 
@@ -306,18 +306,14 @@ To find the next longest suffix, we can use the following rule:
 
 ```
 For junction node child_junction_node branching
-off of parent_node:
-
+off of parent_node
   parent_node ---- internal_branch ----> child_junction_node
+with internal_branch of length "offset":
 
-with internal_branch of length "offset".
-```
-
-```
 next_longest_suffix(child_junction_node) =
   1. Move to next_longest_suffix(parent_node)
   2. Continue moving "offset" through the tree to get to
      next_longest_suffix(child_junction_node)
 ```
 
-And **because [new leaf branches are always length 1 initially](#why-are-new-leaf-branches-always-length-1-initially), to move "offset" between nodes (which should bring us directly to the place we may possibly need to protrude a new length 1 leaf branch out of), we can always totally move along a branch without fear of falling off the tree or mismatching characters**. This detail ends up allowing us to avoid a lot of character comparisons and makes the runtime of the algorithm O(n) instead of O(n^2).
+And **because [new leaf branches are always length 1 initially](#why-are-new-leaf-branches-always-length-1-initially), to move "offset" between nodes (which should bring us directly to the place we may possibly need to protrude a new length 1 leaf branch out of), we can always totally move along a branch without fear of falling off the tree or mismatching characters**. This detail ends up allowing us to avoid a lot of character comparisons and makes the runtime of the algorithm O(n) instead of O(n<sup>2</sup>).
