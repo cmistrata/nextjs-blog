@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import remarkToc from "remark-toc";
 import remarkRehype from "remark-rehype";
+
 import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkPrism from "remark-prism";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -64,6 +65,7 @@ export function getAllPostIds() {
 async function convertToHtmlString(markdownString: string): Promise<string> {
   const markdownToHtmlProcessor = unified()
     .use(remarkParse) // convert markdown to
+    .use(remarkPrism)
     .use(remarkRehype, { allowDangerousHtml: true }) // convert markdown to hast (html abstract syntaxt tree)
     .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to string
   const processedContent = await markdownToHtmlProcessor.process(
