@@ -5,7 +5,7 @@ date: "2023-08-22"
 
 Ukkonen's algorithm is an algorithm for generating a suffix tree in O(n) time. It's surprisingly quick (at least to me), as suffix trees themselves store paths for strings totalling O(n<sup>2</sup>) length. And it also surprisingly complex for an O(n) algorithm. In this post, we'll go over from basics what Ukkonen's algorithm is doing and how.
 
-Finished code illustrating the descriptions can be found [here](https://github.com/cmistrata/substring_structures/blob/main/ukkonens_algorithm.py).
+Finished code illustrating the descriptions can be found [here](https://github.com/cmistrata/substring_structures/blob/main/ukkonens_algorithm.py). Also, there is a pretty good description of Ukkonen's algorithm on [Stack overflow](https://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english), although this article attempts to describe the algorithm somewhat differently.
 
 ## What is a suffix tree / trie?
 
@@ -183,7 +183,8 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 ```
 > grow_branches_through_existing_branches()
 
-* → [a]a Branch(source_start_index=0), with Branch(source_start_index=1) growing inside of it
+* → [a]a Branch(source_start_index=0), with
+          Branch(source_start_index=1) growing inside of it
 ```
 
 4. Append `a` to the suffix trie. **But wait, `a` is already the start of an existing branch growing out of root!**. _And also_, **`a` continues to follow the existing branch for the branch created in the previous step.** Still don't create any new branches. Again, you can **imagine "aaa" as a branch of large diameter, and "aa" and "a" being branches of smaller diameters growing inside of "aaa"**.
@@ -191,7 +192,9 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 ```
 > grow_branches_through_existing_branches()
 
-* → [a][a]a Branch(source_start_index=0), with Branch(source_start_index=1) and Branch(source_start_index=2) growing inside of it
+* → [a][a]a Branch(source_start_index=0),
+             with Branch(source_start_index=1)
+             and Branch(source_start_index=2) growing inside of it
 ```
 
 5. Append `❌` to the suffix trie. `❌` does not continue to grow any of our internal branches, so we must protrude ❌ out of our internal branches. **Imagine our branches "aa" and "a" from the previous step physically turning and breaking through the wall of the branch "aaa" they were growing inside of**.
