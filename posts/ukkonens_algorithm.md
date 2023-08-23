@@ -29,35 +29,35 @@ Ukkonen's algorithm works by iteratively creating a suffix trie for each prefix 
 
 1. Initialize a suffix trie for the empty string "". We now have `suffix_trie("")`.
 
-```
+```py
 *
 ```
 
 2. Append `a` to the suffix trie. We now have `suffix_trie("a")`
 
-```
+```py
 * → `a`
 ```
 
 3. Append `b` to the suffix trie. We now have `suffix_trie("ab")`
 
-```
+```py
 *  → `ab`
    → `b`
 ```
 
 4. Append `c` to the suffix trie. We now have `suffix_trie("abc")`
 
-```
-   → `abc`
+```py
+‎   → `abc`
 *  → `bc`
    → `c`
 ```
 
 5. Append `🍁` to the suffix trie. We now have `suffix_trie("abc🍁")`
 
-```
-   → `abc🍁`
+```py
+‎   → `abc🍁`
 *  → `bc🍁`
    → `c🍁`
    → `🍁`
@@ -122,8 +122,8 @@ The example `abc🍁` is a trivial one though for creating a suffix trie. The po
 
 For a more illustrative example, let's take the string `aba🍁`. Our existing algorithm would produce:
 
-```
-   → aba🍁 branch0
+```py
+‎   → aba🍁 branch0
 *  → ba🍁  branch1
    → a🍁   branch2
    → 🍁    branch3
@@ -135,8 +135,8 @@ However, this "trie" fails as a trie, as there are two distinct branches startin
 
 To be a trie, the paths of branches should be combined up until they split like so:
 
-```
-                          → ba🍁 lbranch0 (suffix aba🍁)
+```py
+‎                          → ba🍁 lbranch0 (suffix aba🍁)
    → a, internal branch *<
                           → 🍁 lbranch2   (suffix a🍁)
 *  → ba🍁  lbranch1
@@ -180,7 +180,7 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 
 3. Append `a`. **But wait, `a` is already the start of an existing branch growing out of root!** So instead of creating a new branch, we grow what would be the new branch through the existing branch. **Imagining the trie as a physical tree like structure, you can imagine "aa" as a branch of large diameter, and "a" as a branch of smaller diameter growing inside of "aa"**.
 
-```
+```py
 > grow_branches_through_existing_branches()
 
 * → [a]a Branch(source_start_index=0), with
@@ -189,7 +189,7 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 
 4. Append `a` to the suffix trie. **But wait, `a` is already the start of an existing branch growing out of root!**. _And also_, **`a` continues to follow the existing branch for the branch created in the previous step.** Still don't create any new branches. Again, you can **imagine "aaa" as a branch of large diameter, and "aa" and "a" being branches of smaller diameters growing inside of "aaa"**.
 
-```
+```py
 > grow_branches_through_existing_branches()
 
 * → [a][a]a Branch(source_start_index=0),
@@ -199,7 +199,7 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 
 5. Append `❌` to the suffix trie. `❌` does not continue to grow any of our internal branches, so we must protrude ❌ out of our internal branches. **Imagine our branches "aa" and "a" from the previous step physically turning and breaking through the wall of the branch "aaa" they were growing inside of**.
 
-```
+```py
 > protrude_branches()
 
     protrude ❌ out of this internal branch representing a branch
@@ -234,7 +234,7 @@ protrude ❌ out of the root
 
 6. Finally, grow 🍁 out of all the branches and the root.
 
-```
+```py
 ❌🍁
 ↑       ❌🍁
 * → a *<     ❌🍁
@@ -304,7 +304,7 @@ To create and store these links, whenever we move positions in the tree in [cond
 
 To find the next longest suffix, we can use the following rule:
 
-```
+```py
 For junction node child_junction_node branching
 off of parent_node
   parent_node ---- internal_branch ----> child_junction_node
