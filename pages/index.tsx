@@ -4,7 +4,7 @@ import utilStyles from "../styles/utils.module.css";
 
 export default function Home({ allPostsData }) {
   return (
-    <Layout home>
+    <Layout>
       <h1>About Me</h1>
       <p>
         Hi! I'm a software engineer working at Google. I'm originally from
