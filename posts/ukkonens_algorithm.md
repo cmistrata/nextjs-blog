@@ -169,7 +169,8 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 *
 ```
 
-2. Append `a` to the suffix trie. We now have a suffix trie for `a`
+2. Append `a` to the suffix trie. We now have a
+   suffix trie for `a`
 
 ```py
 > *.branches['a'] = Branch(source_start_index=0)
@@ -198,13 +199,15 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
 ```
 > protrude_branches()
 
-    protrude ❌ out of this internal branch representing a branch growing inside another
+    protrude ❌ out of this internal branch representing a branch
+    growing inside another
         ↓
 * → [a][a]a❌ ← this leaf was implicitly added as usual
 
 
 
-protrude ❌ out of this internal branch representing a branch growing inside another
+protrude ❌ out of this internal branch representing a branch
+growing inside another
      |
      ↓      ❌
 * → [a]a *<
@@ -299,7 +302,8 @@ To create and store these links, whenever we move positions in the tree in [cond
 To find the next longest suffix, we can use the following rule:
 
 ```
-For junction node child_junction_node branching off of parent_node:
+For junction node child_junction_node branching
+off of parent_node:
 
   parent_node ---- internal_branch ----> child_junction_node
 
@@ -309,7 +313,8 @@ with internal_branch of length "offset".
 ```
 next_longest_suffix(child_junction_node) =
   1. Move to next_longest_suffix(parent_node)
-  2. Continue moving "offset" through the tree to get to next_longest_suffix(child_junction_node)
+  2. Continue moving "offset" through the tree to get to
+     next_longest_suffix(child_junction_node)
 ```
 
 And **because [new leaf branches are always length 1 initially](#why-are-new-leaf-branches-always-length-1-initially), to move "offset" between nodes (which should bring us directly to the place we may possibly need to protrude a new length 1 leaf branch out of), we can always totally move along a branch without fear of falling off the tree or mismatching characters**. This detail ends up allowing us to avoid a lot of character comparisons and makes the runtime of the algorithm O(n) instead of O(n^2).
