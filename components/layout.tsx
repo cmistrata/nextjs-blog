@@ -15,15 +15,10 @@ export const siteTitle = "Charlie Mistrata";
 
 interface LayoutProps {
   children: any;
-  home?: boolean;
   title?: string;
 }
 
-export default function Layout({
-  children,
-  home = false,
-  title = null,
-}: LayoutProps) {
+export default function Layout({ children, title = null }: LayoutProps) {
   const pageHead = (
     <Head>
       <title>{title ?? siteTitle}</title>
@@ -50,11 +45,6 @@ export default function Layout({
         <Header />
 
         <main> {children}</main>
-        {!home && (
-          <div className={styles.backToHome}>
-            <Link href="/">← Back to home</Link>
-          </div>
-        )}
       </Paper>
     </ThemeProvider>
   );

@@ -7,7 +7,7 @@ import { GetStaticProps } from "next";
 
 export default function Posts({ allPostsData }) {
   return (
-    <Layout home title="Posts">
+    <Layout title="Posts">
       <h1>Posts</h1>
       <ul className={utilStyles.list}>
         {allPostsData.map(({ id, date, title }) => (
