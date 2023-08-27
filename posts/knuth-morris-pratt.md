@@ -1,5 +1,5 @@
 ---
-title: Knuth-Morris-Pratt algorithm for O(N) substring search"
+title: Knuth-Morris-Pratt algorithm for O(N) substring search
 date: "2023-08-26"
 ---
 
