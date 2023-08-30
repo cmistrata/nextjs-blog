@@ -32,12 +32,12 @@ export default function Layout({ children, title = null }: LayoutProps) {
       <div className={styles.background}>
         {/* <div className={styles.ground} /> */}
         <div className={styles.sky} />
-        <CloudIcon className={`${styles.cloud} ${styles.cloud1}`} />
+        {/* <CloudIcon className={`${styles.cloud} ${styles.cloud1}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud2}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud3}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud7}`} />
         <CloudIcon className={`${styles.cloud} ${styles.cloud8}`} />
-        <CloudIcon className={`${styles.cloud} ${styles.cloud10}`} />
+        <CloudIcon className={`${styles.cloud} ${styles.cloud10}`} /> */}
       </div>
 
       {/* content */}
