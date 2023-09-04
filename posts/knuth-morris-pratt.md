@@ -204,7 +204,7 @@ prefix_fallback[2] = 0 # "ba" -> ""
 prefix_fallback[3] = 1 # "bab" -> "b"
 prefix_fallback[4] = 2 # "baba" -> "ba"
 prefix_fallback[5] = 3 # "babab" -> "bab"
-prefix_fallback[6] = 0 # "bababa" -> ""
+prefix_fallback[6] = 0 # "bababo" -> ""
 ...
 ```
 
