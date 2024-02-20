@@ -7,14 +7,14 @@ export default function Home({ allPostsData }) {
     <Layout>
       <h1>About Me</h1>
       <p>
-        Hi! I'm a software engineer working at Google. I'm originally from
-        Chicago and am currently living in the Bay Area.{" "}
+        I'm a software engineer working at Google. I'm originally from Chicago
+        and am currently living in the Bay Area.{" "}
       </p>
 
       <p>
-        I use this site as a place to dump some of my thoughts and explanations
-        for stuff I find interesting into <Link href="/posts">posts</Link>. You
-        can reach out to me at cmistrata@gmail.com or at my{" "}
+        I use this site as a place to dump notes on stuff I want to remember
+        into <Link href="/posts">posts</Link>. You can reach out to me at
+        cmistrata@gmail.com or at my{" "}
         <Link href="https://www.linkedin.com/in/charlie-mistrata/">
           LinkedIn
         </Link>
