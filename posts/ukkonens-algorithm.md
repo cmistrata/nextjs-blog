@@ -146,8 +146,8 @@ To be a trie, the paths of branches should be combined up until they split like 
 
 To do this, we must break out current definition of a branch. Now, we will split our definition of branches into two varieties:
 
-1. A **leaf branch**, taking over our existing definition of a branch that has a source string start index and goes to the end of the current string. As before, for source string "aba$": `LeafBranch(source_string_index=1)` == `"aba$"[1:]`==`"ba$"`
-2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba$ and **a$** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs $). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba$": `InternalBranch(source_string_start=0, source_string_end=1)` == `"aba$"[0:1]` == `"a"`
+1. A **leaf branch**, taking over our existing definition of a branch that has a source string start index and goes to the end of the current string. As before, for source string "aba$": LeafBranch(source_string_index=1) == `"aba$"[1:]`==`"ba$"`
+2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba$ and **a$** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs $). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba$": InternalBranch(source_string_start=0, source_string_end=1) == `"aba$"[0:1]` == `"a"`
 
 ### Work done at each step for a non trivial string
 
@@ -262,9 +262,9 @@ Your position is defined as either:
 1. You are not growing inside of another branch: the root node `*`
 2. You are growing inside of another branch: the branch we are growing inside of and our distance along it.
 
-More simply, we will store this as a pair `(branch, branch_distance)`, with `branch` being empty if we are at the root.
+More simply, we will store this as a pair (branch, branch_distance), with branch being empty if we are at the root.
 
-Additionally, we will also store our distance along possibly many branches and junctions in the tree `(tree_distance)` for reasons that will be explained shortly, for `(branch, branch_distance, tree_distance)` as our position.
+Additionally, we will also store our distance along possibly many branches and junctions in the tree (tree_distance) for reasons that will be explained shortly, for (branch, branch_distance, tree_distance) as our position.
 
 To keep track of this, you take the following action at each step when adding a new character:
 

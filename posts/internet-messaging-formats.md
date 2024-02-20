@@ -97,8 +97,40 @@ Unlike IP, TCP, and UDP, which are headers that are added to each packet, HTTP r
 
 HTTP requests are divided into [multiple categories of actions/request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). The most important and common of these methods are:
 
-1. **GET**: Used to ask for something from the recipient. For example, a GET request `GET /Promethean HTTP/1.1` to a dictionary service could ask for the definition of the word "Promethean". The recipient could then send a response `HTTP/1.1 200 OK \r\n {"word": "Promethean": "definition": "Daringly creative.}"`, with the header `HTTP/1.1 200 OK \r\n` indicating that the request was handled successfully (with `\r\n` being a special sequence indicating the end of the header), being followed by the body of the message containing the info the sender was asking for.
-2. **POST**: Used to tell the recipient to update itself somehow. For example, a POST request to a dictionary service `POST /Promethean HTTP/1.1 \r\n {"definition": "Related to Prometheus."}` could tell the service to add a new definition for the word Prometheus. It could be met with a response `HTTP/1.1 200 OK \r\n` indicating the definition was successfully updated.
+**GET**: Used to ask for something from the recipient. For example, a GET request
+
+```http
+GET /Promethean HTTP/1.1
+```
+
+to a dictionary service could ask for the definition of the word "Promethean". The recipient could then send a response
+
+```http
+HTTP/1.1 200 OK \r\n
+{
+    "word": "Promethean",
+    "definition": "Daringly creative."
+}
+```
+
+with the header `HTTP/1.1 200 OK \r\n` indicating that the request was handled successfully (with `\r\n` being a special sequence indicating the end of the header), being followed by the body of the message containing the info the sender was asking for.
+
+**POST**: Used to tell the recipient to update itself somehow. For example, a POST request to a dictionary service
+
+```http
+POST /Promethean HTTP/1.1 \r\n
+{
+    "definition": "Related to Prometheus."
+}
+```
+
+could tell the service to add a new definition for the word Promethean. It could be met with a response
+
+```http
+HTTP/1.1 200 OK \r\n
+```
+
+indicating the definition was successfully updated.
 
 The HTTP format allows for a lot more options that make it easy for senders and recipients to organize the data they are sending between each other (see [more details on Wikipedia](https://en.wikipedia.org/wiki/HTTP#HTTP/1.1_request_messages)). It basically provides a standard way for services (e.g. our example dictionary service) to define how they want to receive requests and how they want to respond. By standardizing, it means tools like web browsers can build around the format, being designed to understand and handle requests and responses.
 
