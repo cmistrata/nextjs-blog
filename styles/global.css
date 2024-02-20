@@ -100,13 +100,17 @@ code:not(.language-py) {
   text-wrap: nowrap;
 }
 
+h2 {
+  margin-top: 2rem;
+  margin-bottom: -1.8rem;
+}
+
 h2::after {
   display: inline-block;
   content: "";
-  /* color: rgb(140, 140, 140); */
-  border-top: .07rem solid rgb(52, 52, 52);
+  border-top: .07rem solid rgb(49, 49, 49);
   width: 100%;
-  transform: translateY(-1rem);
+  transform: translateY(-1.3rem);
 }
 
 /* details > summary > * {

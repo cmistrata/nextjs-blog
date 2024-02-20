@@ -14,11 +14,11 @@ Ukkonen's algorithm is an algorithm for creating a **trie** of the **suffixes** 
 
 ## Implicitly defined branches
 
-Ukkonen's algorithm generates an **implicit suffix trie** ("implicit trie" being an informal name for a [Patricia trie](https://en.wikipedia.org/wiki/Radix_tree#Variants)). The trie is "implicit" because the branches in the trie that Ukkonen's algorithms generates are not made of strings of characters; instead, each branch is defined using a **source string index** in the **source string**, and implicitly is made of the characters `source_string[source_string_index:]`.
+Ukkonen's algorithm generates an **implicit suffix trie** ("implicit trie" being an informal name for a [Patricia trie](https://en.wikipedia.org/wiki/Radix_tree#Variants)). The trie is "implicit" because the branches in the trie that Ukkonen's algorithms generates are not made of strings of characters; instead, each branch is defined using a **source string index** in the **source string**, and implicitly is made of the characters source_string[source_string_index:].
 For example, take the following branches in different source strings:
 
-1. For source string "abc$": `Branch(source_string_index=1)` == `"abc$"[1:]`==`"bc$"`
-2. For source string "hello$": `Branch(source_string_index=2)` == `"hello$"[2:]`==`"llo$"`
+1. For source string "abc$": Branch(source_string_index=1) == `"abc$"[1:]`==`"bc$"`
+2. For source string "hello$": Branch(source_string_index=2) == `"hello$"[2:]`==`"llo$"`
 
 Note that because we are creating a suffix trie, these branches are suffixes of the source string.
 
@@ -87,7 +87,7 @@ The work that needs to manually be done at each step is creating a new branch an
 * → a (Branch(source_start_index=0))
 ```
 
-3. Append `b` to the suffix trie. We now have `suffix_trie("ab")`. **Note here that we have not updated the definition of `Branch(source_start_index=0)`, but it has been implicitly updated to end at the end of the current string `ab` instead of at `a`, becoming `ab` from `a`.**
+3. Append `b` to the suffix trie. We now have `suffix_trie("ab")`. **Note here that we have not updated the definition of Branch(source_start_index=0), but it has been implicitly updated to end at the end of the current string `ab` instead of at `a`, becoming `ab` from `a`.**
 
 ```py
 > *.branches['b'] = Branch(source_start_index=1)
