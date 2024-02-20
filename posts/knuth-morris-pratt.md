@@ -1,6 +1,7 @@
 ---
-title: Knuth-Morris-Pratt algorithm for O(N) substring search
+title: "Knuth-Morris-Pratt algorithm for O(N) substring search"
 date: "2023-08-26"
+completed: true
 ---
 
 The [Knuth-Morris-Pratt substring algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm) is an algorithm
@@ -91,12 +92,8 @@ W: "bababooie"
 Our naive algorithm would take all this info, throw it away, and
 start looking at `S` again starting at index 1.
 
-However, look at our understanding above, and take a second to try to think if
-there's a better next step after failing to match in index 5. Just think
-what you would do as a person, not necessarily as an algorithm step.
-
 You may notice that, because our string is pretty repetitive, rather
-than starting over, we could just shift our string `W`along `S`:
+than starting over, we could just shift our string `W` along `S`:
 
 ```py
 S: "bababa????????????"
@@ -124,7 +121,7 @@ also a prefix of `W`:
 ```py
 S: "bababa????????????"
       ↑↑↑
-W: "bababo"
+W: "babab"
       ↑↑↑
 W:   "bababooie"
 ```
@@ -143,8 +140,11 @@ For "bababooie", we would want something like the following:
 prefix_fallback("bababooie", "b") = ""
 prefix_fallback("bababooie", "ba") = ""
 prefix_fallback("bababooie", "bab") = "b"
+                 ↑              ↑
 prefix_fallback("bababooie", "baba") = "ba"
+                 ↑↑             ↑↑
 prefix_fallback("bababooie", "babab") = "bab"
+                 ↑↑↑            ↑↑↑
 prefix_fallback("bababooie", "bababo") = ""
 ...
 ```
@@ -159,10 +159,6 @@ we can combine the facts that
 to transitively align `P2` with `W` without needing to reexamine characters. Looking again at our example from earlier:
 
 ```py
-S: "bababa????????????"
-    ↑↑↑↑↑
-W: "bababooie"
-
 P1 = "babab"
 P2 = prefix_fallback("bababooie", "babab") = "bab"
 
@@ -177,17 +173,13 @@ P2:   "bab abooie"
 
 Repeating what we've said earlier, our prefix fallback will store,
 for each prefix `P1` of
-W, the longest prefix `P2` of `W` such that `P2` is a suffix of `P1`.
+`W`, the longest prefix `P2` of `W` such that `P2` is a suffix of `P1`.
 
-We can define how to find a fallback for a prefix recursively. Let's take a generic prefix `P1` of `W` defined as `W[0:x]W[x]`. We can
+We can define how to find a fallback for a prefix recursively. Let's take a generic prefix `P1` of `W` of length x+1, and split it into two
+sections of length x and length 1: `P1=W[0:x]W[x]`. We can
 determine the longest prefix `P2` that is a suffix of `P1` by looking
 at the longest prefix that is a suffix of `W[0:x]` and seeing if it is
-followed by `W[x+1]`.
-
-For example, take `prefix_fallback("bababooie", "babab")`.
-Here, `"babab" == "baba" + "b"`.
-We can check if `prefix_fallback("bababooie", "baba") == "ba"`
-is followed by a `"b"`, which it is, and so we set `prefix_fallback("bababooie", "babab") = "ba" + "b"`.
+followed by `W[x]`.
 
 ### Storing indices instead of strings
 

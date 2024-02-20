@@ -1,6 +1,7 @@
 ---
 title: "Internet messaging formats: how computers package and send messages over the internet"
 date: "2023-10-12"
+completed: true
 ---
 
 Whenever a message is sent between devices connected to the internet, the messages must be formatted in a way so that **routers**, the postmen of the internet, know how to deliver them. They can additionally include info that is used by the recipients of messages to verify the integrity of the message and understand its content.
