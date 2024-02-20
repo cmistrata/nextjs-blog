@@ -46,8 +46,7 @@ This would check
 
 This first check is completely efficient: there's no way we
 can understand if the strings are equal without examining the
-characters in them. It would be like reviewing a movie you
-haven't even watched.
+characters in them.
 
 However, our second equality check
 
@@ -58,19 +57,14 @@ keep examining characters of `S` and `W` until a mismatch. However,
 we should hopefully be able to avoid re-examining characters we
 already looked at in step 1.
 
-This would be like if you were
-tasked with reviewing a movie trilogy. If you haven't seen any
-of the movies, you would need to watch all three. However, if
-you've already seen the first two, you shouldn't need to do a
-rewatch and could just watch the third. Similarly here, **we can hope to optimize our algorithm by avoiding relooking at data.**
-
 ## How to take advantage of already looked at data.
 
 To understand how to optimize by avoiding repeated checks, let's
-look at steps 1 and 3. Reminder that our superstring `S` is "babababababababooie" and substring `W` is "bababooie"
+look at steps 1 through 3. Reminder that our superstring `S` is "babababababababooie" and substring `W` is "bababooie"
 
 1. Does `S[0:9] == W`?
-2. Does `S[2:11] == W`?
+2. Does `S[1:10] == W`?
+3. Does `S[2:11] == W`?
 
 For simplicity, let's say we will examine all of `W` beforehand.
 After performing step 1, with sub steps:
@@ -97,7 +91,7 @@ than starting over, we could just shift our string `W` along `S`:
 
 ```py
 S: "bababa????????????"
-W: →→"bababooie"
+W: >>"bababooie"
 ```
 
 and continue checking from index 6 in `S` rather than starting over.
@@ -120,9 +114,9 @@ also a prefix of `W`:
 
 ```py
 S: "bababa????????????"
-      ↑↑↑
+      ^^^
 W: "babab"
-      ↑↑↑
+      ^^^
 W:   "bababooie"
 ```
 
@@ -140,11 +134,11 @@ For "bababooie", we would want something like the following:
 prefix_fallback("bababooie", "b") = ""
 prefix_fallback("bababooie", "ba") = ""
 prefix_fallback("bababooie", "bab") = "b"
-                 ↑              ↑
+                 ^              ^
 prefix_fallback("bababooie", "baba") = "ba"
-                 ↑↑             ↑↑
+                 ^^             ^^
 prefix_fallback("bababooie", "babab") = "bab"
-                 ↑↑↑            ↑↑↑
+                 ^^^            ^^^
 prefix_fallback("bababooie", "bababo") = ""
 ...
 ```
@@ -154,18 +148,18 @@ of `S`,
 we can combine the facts that
 
 1. Prefix `P1` matches/aligns with `S`.
-2. `P2 = prefix_fallback(S, P1)` matches/aligns with `P1`.
+2. `P2 = prefix_fallback(W, P1)` matches/aligns with `P1`.
 
-to transitively align `P2` with `W` without needing to reexamine characters. Looking again at our example from earlier:
+to transitively align `P2` -> `P1` -> `S` without needing to reexamine characters. Looking again at our example from earlier:
 
 ```py
 P1 = "babab"
 P2 = prefix_fallback("bababooie", "babab") = "bab"
-
+                      ^^^            ^^^
 S : "babab|a????????????"
-       ↑↑↑
+       ^^^
 P1: "babab|ooie"
-       ↑↑↑
+       ^^^
 P2:   "bab abooie"
 ```
 
