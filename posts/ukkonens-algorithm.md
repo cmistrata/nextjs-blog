@@ -1,6 +1,7 @@
 ---
 title: "Ukkonen's algorithm for O(n) suffix tree construction"
 date: "2023-08-22"
+completed: true
 ---
 
 Ukkonen's algorithm is an algorithm for generating a suffix tree in O(n) time. It's surprisingly quick (at least to me), as suffix trees themselves store paths for strings totalling O(n<sup>2</sup>) length. And it also surprisingly complex for an O(n) algorithm. In this post, we'll go over from basics what Ukkonen's algorithm is doing and how.
@@ -16,16 +17,16 @@ Ukkonen's algorithm is an algorithm for creating a **trie** of the **suffixes** 
 Ukkonen's algorithm generates an **implicit suffix trie** ("implicit trie" being an informal name for a [Patricia trie](https://en.wikipedia.org/wiki/Radix_tree#Variants)). The trie is "implicit" because the branches in the trie that Ukkonen's algorithms generates are not made of strings of characters; instead, each branch is defined using a **source string index** in the **source string**, and implicitly is made of the characters `source_string[source_string_index:]`.
 For example, take the following branches in different source strings:
 
-1. For source string "abc🍁": `Branch(source_string_index=1)` == `"abc🍁"[1:]` == `"bc🍁"`
-2. For source string "hello🍁": `Branch(source_string_index=2)` == `"hello🍁"[2:]` == `"llo🍁"`
+1. For source string "abc$": `Branch(source_string_index=1)` == `"abc$"[1:]`==`"bc$"`
+2. For source string "hello$": `Branch(source_string_index=2)` == `"hello$"[2:]`==`"llo$"`
 
 Note that because we are creating a suffix trie, these branches are suffixes of the source string.
 
-**Storing branches implicitly, and not storing actual substrings for them, means it is possible to create a structure of O(n) space (n branches of 1 number each) instead of O(n<sup>2</sup>) (n branches of substrings of 1 through n length)**. This _also_ makes it possible to create an algorithm to generate this structure in O(n) time, which Ukkonen's algorithm accomplishes.
+**Storing branches implicitly, and not storing actual substrings for them, means it is possible to create a structure of O(n) space (store 1 number for each of n suffixes) instead of O(n<sup>2</sup>) (store up to n characters each of n suffixes)**. This _also_ makes it possible to create an algorithm to generate this structure in O(n) time, which Ukkonen's algorithm accomplishes.
 
 ## Ukkonen's algorithm's iterative substructure
 
-Ukkonen's algorithm works by iteratively creating a suffix trie for each prefix of the source string passed in. For example, for generating `suffix_trie("abc🍁")` from source string `"abc🍁"`, Ukkonen's algorithm would:
+Ukkonen's algorithm works by iteratively creating a suffix trie for each prefix of the source string passed in. For example, for generating `suffix_trie("abc$")` from source string `"abc$"`, Ukkonen's algorithm would:
 
 1. Initialize a suffix trie for the empty string "". We now have `suffix_trie("")`.
 
@@ -54,13 +55,13 @@ Ukkonen's algorithm works by iteratively creating a suffix trie for each prefix 
    → `c`
 ```
 
-5. Append `🍁` to the suffix trie. We now have `suffix_trie("abc🍁")`
+5. Append `$` to the suffix trie. We now have `suffix_trie("abc$")`
 
 ```py
-‎   → `abc🍁`
-*  → `bc🍁`
-   → `c🍁`
-   → `🍁`
+‎   → `abc$`
+*  → `bc$`
+   → `c$`
+   → `$`
 ```
 
 ### Work done at each step for a trivial string
@@ -105,28 +106,28 @@ The work that needs to manually be done at each step is creating a new branch an
    → c   Branch(source_start_index=2)
 ```
 
-5. Append `🍁` to the suffix trie. We now have `suffix_trie("abc🍁")`.
+5. Append `$` to the suffix trie. We now have `suffix_trie("abc$")`.
 
 ```py
-> *.branches['🍁'] = Branch(source_start_index=3)
+> *.branches['$'] = Branch(source_start_index=3)
 
-   → abc🍁 Branch(source_start_index=0)
-*  → bc🍁  Branch(source_start_index=1)
-   → c🍁   Branch(source_start_index=2)
-   → 🍁    Branch(source_start_index=3)
+   → abc$ Branch(source_start_index=0)
+*  → bc$  Branch(source_start_index=1)
+   → c$   Branch(source_start_index=2)
+   → $    Branch(source_start_index=3)
 ```
 
-The example `abc🍁` is a trivial one though for creating a suffix trie. The point of a trie is to combine paths along the trie that follow the same characters into one path. However, each of the suffixes of `abc🍁` start with a different character, so no paths can be combined. Let's go over a more complex example.
+The example `abc$` is a trivial one though for creating a suffix trie. The point of a trie is to combine paths along the trie that follow the same characters into one path. However, each of the suffixes of `abc$` start with a different character, so no paths can be combined. Let's go over a more complex example.
 
 ## More complex branching
 
-For a more illustrative example, let's take the string `aba🍁`. Our existing algorithm would produce:
+For a more illustrative example, let's take the string `aba$`. Our existing algorithm would produce:
 
 ```py
-‎   → aba🍁 branch0
-*  → ba🍁  branch1
-   → a🍁   branch2
-   → 🍁    branch3
+‎   → aba$ branch0
+*  → ba$  branch1
+   → a$   branch2
+   → $    branch3
 ```
 
 However, this "trie" fails as a trie, as there are two distinct branches starting with the same character `a`.
@@ -136,29 +137,29 @@ However, this "trie" fails as a trie, as there are two distinct branches startin
 To be a trie, the paths of branches should be combined up until they split like so:
 
 ```py
-‎                          → ba🍁 lbranch0 (suffix aba🍁)
+‎                          → ba$ lbranch0 (suffix aba$)
    → a, internal branch *<
-                          → 🍁 lbranch2   (suffix a🍁)
-*  → ba🍁  lbranch1
-   → 🍁    lbranch3
+                          → $ lbranch2   (suffix a$)
+*  → ba$  lbranch1
+   → $    lbranch3
 ```
 
 To do this, we must break out current definition of a branch. Now, we will split our definition of branches into two varieties:
 
-1. A **leaf branch**, taking over our existing definition of a branch that has a source string start index and goes to the end of the current string. As before, for source string "aba🍁": `LeafBranch(source_string_index=1)` == `"aba🍁"[1:]` == `"ba🍁"`
-2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba🍁 and **a🍁** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs 🍁). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba🍁": `InternalBranch(source_string_start_index=0, source_string_end_index=1)` == `"aba🍁"[0:1]` == `"a"`
+1. A **leaf branch**, taking over our existing definition of a branch that has a source string start index and goes to the end of the current string. As before, for source string "aba$": `LeafBranch(source_string_index=1)` == `"aba$"[1:]`==`"ba$"`
+2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba$ and **a$** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs $). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba$": `InternalBranch(source_string_start_index=0, source_string_end_index=1)` == `"aba$"[0:1]` == `"a"`
 
 ### Work done at each step for a non trivial string
 
-When growing a branch out of the root, **if we see that the character we are adding is already at the start of an existing branch, we start to grow the new branch inside of the existing branch instead of creating a new one**. Later, when characters stop matching between the internal branch and the branch it is growing in, we must protrude out of the existing branch. We do the following steps when we encounter a new character "❌" that mismatches between the internal branch and its housing branch:
+When growing a branch out of the root, **if we see that the character we are adding is already at the start of an existing branch, we start to grow the new branch inside of the existing branch instead of creating a new one**. Later, when characters stop matching between the internal branch and the branch it is growing in, we must protrude out of the existing branch. We do the following steps when we encounter a new character "X" that mismatches between the internal branch and its housing branch:
 
 1. Create a new node **"junction"** representing the branching off point. We can grow new branches out of this node the same way we grow branches out of the root node `*`.
 2. Split the branch we were growing inside of into two branches: an internal branch representing the beginning part of the branch behind the **junction**, and—depending on if we are splitting a leaf or internal branch respectively—a leaf branch or internal branch representing the remaining part of the branch after **junction**.
-3. Start growing a new leaf branch out of **junction** for ❌ , defining it using ❌'s index in the source string.
+3. Start growing a new leaf branch out of **junction** for X , defining it using X's index in the source string.
 
 Note for the above, we will not necessarily always create a new node if a node to grow out of (such as root `*` for our naive example) already exists.
 
-To illustrate the above, take the string `aaa❌🍁`. The process looks like:
+To illustrate the above, take the string `aaaX$`. The process looks like:
 
 1. Initialize a suffix trie for the empty string ``. We now have a suffix trie for the empty string.
 
@@ -197,54 +198,54 @@ To illustrate the above, take the string `aaa❌🍁`. The process looks like:
              and Branch(source_start_index=2) growing inside of it
 ```
 
-5. Append `❌` to the suffix trie. `❌` does not continue to grow any of our internal branches, so we must protrude ❌ out of our internal branches. **Imagine our branches "aa" and "a" from the previous step physically turning and breaking through the wall of the branch "aaa" they were growing inside of**.
+5. Append `X` to the suffix trie. `X` does not continue to grow any of our internal branches, so we must protrude X out of our internal branches. **Imagine our branches "aa" and "a" from the previous step physically turning and breaking through the wall of the branch "aaa" they were growing inside of**.
 
 ```py
 > protrude_branches()
 
-    protrude ❌ out of this internal branch representing a branch
+    protrude X out of this internal branch representing a branch
     growing inside another
         ↓
-* → [a][a]a❌ ← this leaf was implicitly added as usual
+* → [a][a]aX ← this leaf was implicitly added as usual
 
 
 
-protrude ❌ out of this internal branch representing a branch
+protrude X out of this internal branch representing a branch
 growing inside another
      |
-     ↓      ❌
+     ↓      X
 * → [a]a *<
-            a❌
+            aX
 
 
-protrude ❌ out of the root
+protrude X out of the root
 |
-↓        ❌
-* → a *<      ❌
+↓        X
+* → a *<      X
          a *<
-              a❌
+              aX
 
 
-❌
-↑        ❌
-* → a *<      ❌
+X
+↑        X
+* → a *<      X
          a *<
-              a❌
+              aX
 ```
 
-6. Finally, grow 🍁 out of all the branches and the root.
+6. Finally, grow $ out of all the branches and the root.
 
 ```py
-❌🍁
-↑       ❌🍁
-* → a *<     ❌🍁
+X$
+↑       X$
+* → a *<     X$
 ↓       a *<
-🍁           a❌🍁
+$           aX$
 ```
 
 #### Side note: Appending a terminating character
 
-Looking at step 4, you may notice that we don't actually have a useable suffix trie, as some of the branches are still stuck internally inside of other branches. To avoid ending in a state like this, we add a unique character to the end of our source string—I have been using 🍁 in this post. As long as the unique character we add does not exist anywhere else in the string, it means we must protrude each of our internal branches out into leaf branches.
+Looking at step 4, you may notice that we don't actually have a useable suffix trie, as some of the branches are still stuck internally inside of other branches. To avoid ending in a state like this, we add a unique character to the end of our source string—I have been using $ in this post. As long as the unique character we add does not exist anywhere else in the string, it means we must protrude each of our internal branches out into leaf branches.
 
 ## Navigating the trie as we create new branches
 
@@ -282,13 +283,13 @@ Conditionally do 1 of the following:
 
 ##### We mismatched characters and moved off of the tree
 
-1. If you can't follow an existing branch, protrude a new branch out of the existing position [as described earlier](#work-done-at-each-step-for-a-non-trivial-string) to land on. After doing this, **move to the next longest suffix in the trie**. To do this, you decrement `tree_distance` by one, as the next longest suffix will be one character shorter into the tree than the current longest suffix. If the next longest suffix is also not yet constructed in the tree, you need to continually create branches to land on and decrement `tree_distance` until you land on an existing position in the tree.
+3. If you can't follow an existing branch, protrude a new branch out of the existing position [as described earlier](#work-done-at-each-step-for-a-non-trivial-string) to land on. After doing this, **move to the next longest suffix in the trie**. To do this, you decrement `tree_distance` by one, as the next longest suffix will be one character shorter into the tree than the current longest suffix. If the next longest suffix is also not yet constructed in the tree, you need to continually create branches to land on and decrement `tree_distance` until you land on an existing position in the tree.
 
 #### Why are new leaf branches always length 1 initially?
 
 Note for step 3 above, **the next longest suffix in the trie will either be an existing position in the tree or a new leaf branch with length 1**. In other words, **we will never need to create a new leaf branch with initial length greater than 1.**
 
-To prove this, for mismatched character "❌", let's say we are on suffix `s` in the tree before moving off it. Suffix `s` being in the tree means we have seen it and updated the tree with it already. This also means that every suffix of `s` has already been seen and the tree updated with them (take a moment to make sure that makes sense). When we encounter mismatch "❌", we need to add `s❌` to the tree. After doing this, we move our position to `s[1:]❌`. Because `s[1:]` is a suffix of `s`, it has already been inserted into the tree, so if `s[1:]❌` is not in the tree it will only be one distance off of it.
+To prove this, for mismatched character "X", let's say we are on suffix `s` in the tree before moving off it. Suffix `s` being in the tree means we have seen it and updated the tree with it already. This also means that every suffix of `s` has already been seen and the tree updated with them (take a moment to make sure that makes sense). When we encounter mismatch "X", we need to add `sX` to the tree. After doing this, we move our position to `s[1:]X`. Because `s[1:]` is a suffix of `s`, it has already been inserted into the tree, so if `s[1:]X` is not in the tree it will only be one distance off of it.
 
 This fact will be important a bit later for optimizing our algorithm.
 
