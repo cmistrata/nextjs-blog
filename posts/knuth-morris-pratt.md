@@ -156,6 +156,7 @@ to transitively align `P2` -> `P1` -> `S` without needing to reexamine character
 P1 = "babab"
 P2 = prefix_fallback("bababooie", "babab") = "bab"
                       ^^^            ^^^
+
 S : "babab|a????????????"
        ^^^
 P1: "babab|ooie"

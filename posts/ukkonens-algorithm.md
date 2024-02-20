@@ -147,7 +147,7 @@ To be a trie, the paths of branches should be combined up until they split like 
 To do this, we must break out current definition of a branch. Now, we will split our definition of branches into two varieties:
 
 1. A **leaf branch**, taking over our existing definition of a branch that has a source string start index and goes to the end of the current string. As before, for source string "aba$": `LeafBranch(source_string_index=1)` == `"aba$"[1:]`==`"ba$"`
-2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba$ and **a$** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs $). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba$": `InternalBranch(source_string_start_index=0, source_string_end_index=1)` == `"aba$"[0:1]` == `"a"`
+2. An **internal branch**, which exists internally inside of the trie and has more than 1 path/suffix going through it. Above, the internal branch with string `a` has suffixes **a**ba$ and **a$** passing through it. These branches then split out at **junction nodes** where the suffixes diverge (b vs $). **Define these branches, which represent a substring of the source string, using a source start index and end index.** For source string "aba$": `InternalBranch(source_string_start=0, source_string_end=1)` == `"aba$"[0:1]` == `"a"`
 
 ### Work done at each step for a non trivial string
 

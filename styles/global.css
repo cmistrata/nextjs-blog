@@ -90,6 +90,25 @@ details > ul {
   margin-bottom: 0;
 }
 
+code:not(.language-py) {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: inherit; /* 2 */
+  background: #3d3d3d;
+  color: rgb(241, 236, 228);
+  padding: 3px;
+  border-radius: 6px;
+  text-wrap: nowrap;
+}
+
+h2::after {
+  display: inline-block;
+  content: "";
+  /* color: rgb(140, 140, 140); */
+  border-top: .07rem solid rgb(52, 52, 52);
+  width: 100%;
+  transform: translateY(-1rem);
+}
+
 /* details > summary > * {
   display: inline;
 }
