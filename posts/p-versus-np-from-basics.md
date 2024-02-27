@@ -6,6 +6,8 @@ completed: true
 
 [P versus NP](https://en.wikipedia.org/wiki/P_versus_NP_problem) is one of the, if not the, greatest unsolved problems in mathematics. It questions whether the `NP` and `P` complexity classes for problems are the same. What does this mean? Let's go over it step by step, starting from basics.
 
+## ToC
+
 ## What's an algorithm?
 
 An **algorithm** is an outlined way of solving a problem. You can think of it as a step by step process that you can follow to find a solution to a problem.
@@ -54,7 +56,7 @@ As a simple example, **linear complexity** is a time complexity class grouping p
 
 ### P (deterministic polynomial time) complexity
 
-**P** is short for **deterministic polynomial time** **polynomial time**, or more succinctly **polynomial time**. Polynomial time describes problems with algorithms that take at most an exponential (N<sup>c</sup> where c is a constant) amount of time to run using a [deterministic Turing machine](https://en.wikipedia.org/wiki/Turing_machine). A deterministic Turing machine is basically a real-word computer, including whatever one you're reading this article on.
+**P** is short for **deterministic polynomial time**\, or more succinctly **polynomial time**. Polynomial time describes problems with algorithms that take at most an exponential (N<sup>c</sup> where c is a constant) amount of time to run using a [deterministic Turing machine](https://en.wikipedia.org/wiki/Turing_machine). A deterministic Turing machine is basically a real-word computer, including whatever one you're reading this article on.
 
 Harder problems in this category can often be solved by trying combinations of input elements with a constant size. For example, say you have a list of N numbers, and you want to find 3 numbers in the list that add up to 17. You could check every combination of 3 numbers in the list (N<sup>3</sup> combinations) until you find a combination that adds to 17, putting this problem in P time.
 

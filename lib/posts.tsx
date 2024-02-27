@@ -1,12 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import remarkRehype from "remark-rehype";
 
-import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
+import remarkRehype from "remark-rehype";
+import remarkToc from "remark-toc";
+import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkPrism from "remark-prism";
+import remarkStringify from "remark-stringify";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -65,11 +67,20 @@ export function getAllPostIds() {
 }
 
 async function convertToHtmlString(markdownString: string): Promise<string> {
+  const addTocProcessor = unified()
+    .use(remarkParse) // convert to mdast (markdown abstract syntax tree)
+    .use(remarkStringify) // convert to markdown
+    .use(remarkToc)
+    .use(remarkToc);
+  const markdownStringWithToc = await addTocProcessor.process(markdownString);
+  console.log(String(markdownStringWithToc));
+
   const markdownToHtmlProcessor = unified()
-    .use(remarkParse) // convert markdown to
-    .use(remarkPrism)
-    .use(remarkRehype, { allowDangerousHtml: true }) // convert markdown to hast (html abstract syntaxt tree)
-    .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to string
+    .use(remarkParse) // convert string to mdast (markdown abstract syntax tree)
+    .use(remarkToc, { tight: true }) // add toc
+    .use(remarkPrism) // highlight code blocks
+    .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
+    .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to html string
   const processedContent = await markdownToHtmlProcessor.process(
     markdownString
   );

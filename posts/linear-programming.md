@@ -6,7 +6,7 @@ completed: false
 
 [Linear programming](https://en.wikipedia.org/wiki/Linear_programming) is an algorithm that solves the broad problem of optimizing some output given a set of linear constraints.
 
-# Linear programming
+# ToC
 
 # Brewer's problem
 

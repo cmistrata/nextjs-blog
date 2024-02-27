@@ -8,6 +8,8 @@ Ukkonen's algorithm is an algorithm for generating a suffix tree in O(n) time. I
 
 Finished code illustrating the descriptions can be found [here](https://github.com/cmistrata/substring_structures/blob/main/ukkonens_algorithm.py). Also, there is a pretty good description of Ukkonen's algorithm on [Stack overflow](https://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english), although this article attempts to describe the algorithm somewhat differently.
 
+## ToC
+
 ## What is a suffix tree / trie?
 
 Ukkonen's algorithm is an algorithm for creating a **trie** of the **suffixes** of a **source string**. Although the trie of the suffixes of a string is formally called a **suffix tree**, this feels like a bit of a misnomer, and I'll use the names **suffix trie** and **trie** in this post to clearly indicate that the structure we are building is a trie.

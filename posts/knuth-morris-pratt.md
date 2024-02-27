@@ -11,6 +11,8 @@ rechecking parts of string `S` we've already read. How does it do this?
 Let's go over it, starting from a naive substring algorithm and
 optimizing it to get to Knuth-Morris-Pratt.
 
+## ToC
+
 ## Naive substring algorithm
 
 A naive/obvious substring algorithm is to check every possible

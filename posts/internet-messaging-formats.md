@@ -7,6 +7,8 @@ completed: true
 Whenever a message is sent between devices connected to the internet, the messages must be formatted in a way so that **routers**, the postmen of the internet, know how to deliver them. They can additionally include info that is used by the recipients of messages to verify the integrity of the message and understand its content.
 To achieve this, internet messages have **headers** that prefix the actual content of the message, similar to a book starting with a table of contents. What this header contains can range from very simple to somewhat complex. Let's go over the various formats that are used to send messages over the internet.
 
+## ToC
+
 ## Background info: packets
 
 When delivering some data over the internet, generally it is not sent in one big message. Instead, it is split into several **packets** that are sent independently.
