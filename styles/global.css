@@ -1,6 +1,6 @@
 html,
 body {
-  --body-background-color: rgb(37, 37, 37);
+  --body-background-color: rgb(28, 28, 28);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -108,7 +108,7 @@ h2 {
 h2::after {
   display: inline-block;
   content: "";
-  border-top: .07rem solid rgb(49, 49, 49);
+  border-top: .07rem solid rgb(70, 70, 70);
   width: 100%;
   transform: translateY(-1.3rem);
 }
