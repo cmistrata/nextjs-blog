@@ -9,6 +9,7 @@ import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkPrism from "remark-prism";
 import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -74,6 +75,7 @@ async function convertToHtmlString(markdownString: string): Promise<string> {
     .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
     .use(rehypeSlug) // add ids to header elements
     // @ts-ignore
+    .use(rehypeAutolinkHeadings, { behavior: "wrap" })
     .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to html string
   const processedContent = await markdownToHtmlProcessor.process(
     markdownString
