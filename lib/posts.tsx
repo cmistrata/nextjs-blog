@@ -8,7 +8,7 @@ import remarkToc from "remark-toc";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkPrism from "remark-prism";
-import remarkStringify from "remark-stringify";
+import rehypeSlug from "rehype-slug";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -72,6 +72,7 @@ async function convertToHtmlString(markdownString: string): Promise<string> {
     .use(remarkToc, { tight: true }) // add toc
     .use(remarkPrism) // highlight code blocks
     .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
+    .use(rehypeSlug) // add ids to header elements
     .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to html string
   const processedContent = await markdownToHtmlProcessor.process(
     markdownString
