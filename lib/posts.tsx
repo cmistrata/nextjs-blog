@@ -67,14 +67,6 @@ export function getAllPostIds() {
 }
 
 async function convertToHtmlString(markdownString: string): Promise<string> {
-  const addTocProcessor = unified()
-    .use(remarkParse) // convert to mdast (markdown abstract syntax tree)
-    .use(remarkStringify) // convert to markdown
-    .use(remarkToc)
-    .use(remarkToc);
-  const markdownStringWithToc = await addTocProcessor.process(markdownString);
-  console.log(String(markdownStringWithToc));
-
   const markdownToHtmlProcessor = unified()
     .use(remarkParse) // convert string to mdast (markdown abstract syntax tree)
     .use(remarkToc, { tight: true }) // add toc
