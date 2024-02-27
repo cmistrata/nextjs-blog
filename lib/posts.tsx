@@ -73,6 +73,7 @@ async function convertToHtmlString(markdownString: string): Promise<string> {
     .use(remarkPrism) // highlight code blocks
     .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
     .use(rehypeSlug) // add ids to header elements
+    // @ts-ignore
     .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to html string
   const processedContent = await markdownToHtmlProcessor.process(
     markdownString
