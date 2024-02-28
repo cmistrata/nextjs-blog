@@ -13,7 +13,7 @@
 }
 
 .background {
-  background-color: rgb(22, 22, 22);
+  background-color: rgb(31, 31, 31);
   height: 8rem;
   width: 100%;
   position: absolute;
@@ -48,7 +48,9 @@
 }
 
 .cloud {
-  animation: moveright linear infinite;
+  animation-timing-function: linear;
+  animation-name: moveright;
+  animation-iteration-count: infinite;
   fill: rgba(255, 255, 255, 0.023) !important;
   position: absolute !important;
 
@@ -56,81 +58,37 @@
 }
 
 .cloud1 {
-  animation-duration: 160s;
-  animation-delay: -30s;
-  top: 2.3rem !important;
+  top: 41px !important;
   width: 50px !important;
   height: 50px !important;
 }
 
 .cloud2 {
-  animation-duration: 135s;
-  animation-delay: -10s;
-  top: 1.7rem !important;
+  top: 31rem !important;
   width: 80px !important;
   height: 80px !important;
 }
 
 .cloud3 {
-  animation-duration: 145s;
-  animation-delay: -120s;
-  top: 0.6rem !important;
+  top: 11px !important;
   width: 70px !important;
   height: 70px !important;
 }
 
 .cloud4 {
-  animation-duration: 153s;
-  animation-delay: -100s;
-  top: 0.8rem !important;
-  width: 60px !important;
-  height: 60px !important;
-}
-
-.cloud5 {
-  animation-duration: 150s;
-  animation-delay: 0s;
-  top: 1rem !important;
-  width: 55px !important;
-  height: 55px !important;
-}
-
-.cloud6 {
-  animation-duration: 160s;
-  animation-delay: -120s;
-  top: 2rem !important;
-  width: 45px !important;
-  height: 45px !important;
-}
-
-.cloud7 {
-  animation-duration: 145s;
-  animation-delay: -90s;
-  top: 0.3rem !important;
+  top: 5px !important;
   width: 65px !important;
   height: 65px !important;
 }
 
-.cloud8 {
-  animation-duration: 139s;
-  animation-delay: -50s;
-  top: 0.1rem !important;
+.cloud5 {
+  top: 2px !important;
   width: 70px !important;
   height: 70px !important;
 }
 
-.cloud9 {
-  animation-duration: 147s;
-  animation-delay: -40s;
-  top: 0.2rem !important;
-  width: 60px !important;
-  height: 60px !important;
-}
-
-.cloud10 {
-  animation-duration: 130s;
-  animation-delay: -60s;
-  top: 0.5rem !important;
+.cloud6 {
+  top: 8px !important;
   width: 90px !important;
   height: 90px !important;
 }

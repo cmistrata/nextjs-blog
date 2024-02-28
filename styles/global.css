@@ -1,6 +1,6 @@
 html,
 body {
-  --body-background-color: rgb(28, 28, 28);
+  --body-background-color: rgb(24, 24, 26);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -8,6 +8,11 @@ body {
   line-height: 1.6;
   background-color: var(--body-background-color);
   color: white;
+}
+
+main {
+  --article-background-color: rgb(31, 31, 32);
+  background-color: var(--article-background-color);
 }
 
 svg {
