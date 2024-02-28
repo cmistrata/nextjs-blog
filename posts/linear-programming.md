@@ -85,7 +85,7 @@ Linear: 8 ≥ b + 0.5c
 Not linear 4 = b<sup>2</sup> + c  
 Not linear: 5 = log(b)
 
-Our example problem is linear as the amount of ingredients used and the profit we make scales linearly with the amount of drinks produced, allowing us to express each part of the problem as a [linear expression](https://www.cuemath.com/algebra/linear-equations/). If something funky happened like the profit per drink going down with higher production maybe you satisfy all the demand for beer, linear programming would not be applicable.
+Our example problem is linear as the amount of ingredients used and the profit we make scales linearly with the amount of drinks produced, allowing us to express each part of the problem as a [linear expression](https://www.cuemath.com/algebra/linear-equations/). If something funky happened like the profit per drink going down with higher production (maybe you satisfy all the demand for beer), linear programming would not be applicable.
 
 Knowing a problem is linear makes it easier to solve. Linear constraints
 end up forming a zone of feasibility (set of solutions) that is a convex polygon (polygon without any inward pointing edges) that we can

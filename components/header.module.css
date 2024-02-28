@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgb(18, 21, 31);
-  min-height: 8rem;
+  min-height: 140px;
   z-index: 3;
   position: relative;
 }
@@ -12,13 +12,23 @@
   z-index: inherit;
 }
 
+.name {
+  font-size: min(3rem, 5vw);
+  
+  line-height: 1.4;
+  margin: 0.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logos {
   display: inline-grid;
   grid-template-columns: [first] auto [second] auto;
   grid-template-rows: [first] auto [second] auto;
   margin: 10px 0 0 3px;
   padding: 7px 0 0 22px;
-  height: 5rem;
+  height: 80px;
   column-gap: 13px;
 }
 
@@ -26,7 +36,7 @@
 .navlinks a {
   text-align: right;
   color: white;
-  font-size: min(1.2rem, 4.5vw);
+  font-size: min(1.3rem, 4.5vw);
 }
 
 .grow:hover {

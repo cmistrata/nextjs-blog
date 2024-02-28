@@ -38,7 +38,7 @@ export default function Header(props) {
 function PersonalDescription(props) {
   return (
     <div className="flex-horizontal">
-      <h1 className={utilStyles.headingLg}>
+      <h1 className={headerStyles.name}>
         <Link href="/" className={utilStyles.colorInherit}>
           charlie mistrata
         </Link>
