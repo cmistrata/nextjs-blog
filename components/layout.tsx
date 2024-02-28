@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Link from "next/link";
 import Header from "./header";
 import CloudIcon from "@mui/icons-material/Cloud";
+import { useState, useEffect } from "react";
 
 const darkTheme = createTheme({
   palette: {
@@ -32,11 +33,47 @@ function createCloudAnimationStyle(
 }
 
 export default function Layout({ children, title = null }: LayoutProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const currentTimeInSeconds = Date.now() / 1000;
   const pageHead = (
     <Head>
       <title>{title ?? siteTitle}</title>
     </Head>
+  );
+  const clouds = isClient ? (
+    <>
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud1}`}
+        style={createCloudAnimationStyle(160, -30, currentTimeInSeconds)}
+      />
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud2}`}
+        style={createCloudAnimationStyle(135, -10, currentTimeInSeconds)}
+      />
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud3}`}
+        style={createCloudAnimationStyle(145, -120, currentTimeInSeconds)}
+      />
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud4}`}
+        style={createCloudAnimationStyle(145, -80, currentTimeInSeconds)}
+      />
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud5}`}
+        style={createCloudAnimationStyle(139, -50, currentTimeInSeconds)}
+      />
+      <CloudIcon
+        className={`${styles.cloud} ${styles.cloud6}`}
+        style={createCloudAnimationStyle(130, -60, currentTimeInSeconds)}
+      />
+    </>
+  ) : (
+    <></>
   );
   return (
     <ThemeProvider theme={darkTheme}>
@@ -45,30 +82,7 @@ export default function Layout({ children, title = null }: LayoutProps) {
       {/* background */}
       <div className={styles.background}>
         <div className={styles.sky} />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud1}`}
-          style={createCloudAnimationStyle(160, -30, currentTimeInSeconds)}
-        />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud2}`}
-          style={createCloudAnimationStyle(135, -10, currentTimeInSeconds)}
-        />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud3}`}
-          style={createCloudAnimationStyle(145, -120, currentTimeInSeconds)}
-        />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud4}`}
-          style={createCloudAnimationStyle(145, -80, currentTimeInSeconds)}
-        />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud5}`}
-          style={createCloudAnimationStyle(139, -50, currentTimeInSeconds)}
-        />
-        <CloudIcon
-          className={`${styles.cloud} ${styles.cloud6}`}
-          style={createCloudAnimationStyle(130, -60, currentTimeInSeconds)}
-        />
+        {clouds}
       </div>
 
       {/* content */}
