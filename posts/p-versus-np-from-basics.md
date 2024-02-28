@@ -74,11 +74,11 @@ However, no matter how lucky you are when solving a problem, you still need to v
 
 ### P versus NP
 
-The NP complexity class is by definition larger than / at least as difficult as the P complexity class. **P versus NP** asks if the **P** and **NP** time complexity classes are the same. In other words, **if you can verify the solution to a problem in polynomial time, can you also necessarily find a solution in polynomial time?**
+The NP complexity class is by definition at least as large/difficult as the P complexity class. **P versus NP** asks if the **P** and **NP** time complexity classes are the same. In other words, **if you can verify the solution to a problem in polynomial time, can you also necessarily find a solution in polynomial time?**
 
-The obvious answer to this question might seem like no — after all, finding the answer to a problem is much harder than checking if it's correct! And most mathematicians and computer scientists believe the answer is probably no, but none of them have been able to prove it either way.
+The obvious answer to this question might seem like no — after all, finding the answer to a problem is usually much harder than checking if it's correct! And most mathematicians and computer scientists believe the answer is probably no, but none of them have been able to prove it either way.
 
-Even more bafflingly, there's a pretty clear outline of how you could prove if P equals or doesn't equal NP, detailed below
+Even more bafflingly, there's a pretty clear outline of how you could prove if P equals or doesn't equal NP, detailed below, still though no one has come up with a proof.
 
 ## Bonus info: how to prove if P = NP
 
