@@ -16,7 +16,7 @@ function generateSiteMap(posts) {
        .map((id) => {
          return `
        <url>
-           <loc>${`${URL}/${id}`}</loc>
+           <loc>${`${URL}/posts/${id}`}</loc>
        </url>
      `;
        })
