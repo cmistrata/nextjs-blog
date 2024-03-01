@@ -1,6 +1,6 @@
 import { getAllPostIds } from "../lib/posts";
 
-const URL = "https://www.charliemistrata.com/";
+const URL = "https://www.charliemistrata.com";
 
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
