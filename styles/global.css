@@ -17,6 +17,7 @@ body {
 main {
   --article-background-color: rgb(31, 31, 32);
   background-color: var(--article-background-color);
+  overflow-x: auto;
 }
 
 svg {
