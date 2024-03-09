@@ -441,8 +441,6 @@ return the current values we have as our optimal solution:
 - $$B=8/3$$
 - $$P=56/3$$
 
-Nice, we've used linear programming to find the optimal solution!
-
 ## Conclusion
 
 Hopefully our skating analogy made it clear what linear programming
