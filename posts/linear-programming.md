@@ -2,6 +2,8 @@
 title: "Linear programming explained as skating downhill"
 date: "2024-03-09"
 completed: true
+previewImage: "/images/linear_programming/preview.png"
+description: "Using skating as an analogy to understand linear programming, a broad optimization algorithm."
 ---
 
 [Linear programming](https://en.wikipedia.org/wiki/Linear_programming) is an algorithm that solves the general problem of maximizing

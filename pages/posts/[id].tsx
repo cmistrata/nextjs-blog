@@ -9,6 +9,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       postData,
+      id: context.params.id,
     },
   };
 };
@@ -28,9 +29,32 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default function Post({ postData }) {
+export default function Post({ postData, id }) {
+  const metas = [
+    <meta
+      key="url"
+      property="og:url"
+      content={`https://www.charliemistrata.com/posts/${id}`}
+    />,
+    <meta key="title" property="og:title" content={postData.title} />,
+    <meta key="type" property="og:type" content="article" />,
+  ];
+  if (postData.description) {
+    metas.push(
+      <meta
+        key="description"
+        property="og:description"
+        content={postData.description}
+      />
+    );
+  }
+  if (postData.previewImage) {
+    metas.push(
+      <meta key="image" property="og:image" content={postData.previewImage} />
+    );
+  }
   return (
-    <Layout title={postData.title}>
+    <Layout title={postData.title} metas={metas}>
       <article>
         <h1 className={utilStyles.headingXl} id="title">
           {postData.title}

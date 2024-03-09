@@ -2,7 +2,6 @@ import Head from "next/head";
 import styles from "./layout.module.css";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Link from "next/link";
 import Header from "./header";
 import CloudIcon from "@mui/icons-material/Cloud";
 import { useState, useEffect } from "react";
@@ -17,6 +16,7 @@ export const siteTitle = "Charlie Mistrata";
 interface LayoutProps {
   children: any;
   title?: string;
+  metas?: React.ReactElement[];
 }
 
 function createCloudAnimationStyle(
@@ -32,7 +32,7 @@ function createCloudAnimationStyle(
   };
 }
 
-export default function Layout({ children, title = null }: LayoutProps) {
+export default function Layout({ children, title = null, metas }: LayoutProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -43,6 +43,7 @@ export default function Layout({ children, title = null }: LayoutProps) {
   const pageHead = (
     <Head>
       <title>{title ?? siteTitle}</title>
+      {metas}
     </Head>
   );
   const clouds = isClient ? (
