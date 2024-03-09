@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -5,11 +7,14 @@ import matter from "gray-matter";
 import { unified } from "unified";
 import remarkRehype from "remark-rehype";
 import remarkToc from "remark-toc";
+import remarkMath from "remark-math";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkPrism from "remark-prism";
+import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeMathjax from "rehype-mathjax";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
@@ -70,12 +75,16 @@ export function getAllPostIds() {
 async function convertToHtmlString(markdownString: string): Promise<string> {
   const markdownToHtmlProcessor = unified()
     .use(remarkParse) // convert string to mdast (markdown abstract syntax tree)
+    .use(remarkGfm) // Support GFM (tables, autolinks, tasklists, strikethrough)
     .use(remarkToc, { tight: true }) // add toc
     .use(remarkPrism) // highlight code blocks
+    .use(remarkMath)
     .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
+    .use(rehypeMathjax)
     .use(rehypeSlug) // add ids to header elements
     // @ts-ignore
     .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+
     .use(rehypeStringify, { allowDangerousHtml: true }); // convert hast to html string
   const processedContent = await markdownToHtmlProcessor.process(
     markdownString

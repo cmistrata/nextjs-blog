@@ -1,396 +1,464 @@
 ---
-title: "Linear Programming"
-date: "2023-12-20"
-completed: false
+title: "Linear programming explained as skating downhill"
+date: "2024-03-09"
+completed: true
 ---
 
-[Linear programming](https://en.wikipedia.org/wiki/Linear_programming) is an algorithm that solves the broad problem of optimizing some output given a set of linear constraints.
+[Linear programming](https://en.wikipedia.org/wiki/Linear_programming) is an algorithm that solves the general problem of maximizing
+a linear outcome given linear constraints. This includes the very broad category of problems "Given a limited of resources, objectives using those resources, and a value for each objective, how can I output objectives to maximize value?". What exactly does this mean though, and how can we solve these kinds of problems? Let's go over it, using skating downhill as an analogy to
+help us understand both what these problems look like and what solving them looks like.
 
-# ToC
+## ToC
 
-# Brewer's problem
+## Example linear programming problem with terms
 
-[Brewer's problem](https://www.cs.princeton.edu/courses/archive/spring07/cos226/lectures/22LinearProgramming.pdf) is an example of one that can be solved using linear programming. It asks, given a limited amount of ingredients (corn, hops, and malt), and different types of drinks that use those ingredients and sell for different prices (ale and beer), what combination of ale and beer can you produce to make the most money given the ingredients you have?
+As an example problem, we will try to figure out how much
+ale and bread we should produce given a limited amount of ingredients
+to maximize profits.
 
-## Example problem and background terms
+Take the following tables listing the recipes of ale and bread, their
+selling prices, and the amount of ingredients we have.
 
-As an example, take the following table listing the recipes and selling prices of two drinks:
+<div class="flex-horizontal">
 
-| Drink | Corn | Hops | Malt | **Selling price** |
-| ----- | ---- | ---- | ---- | ----------------- |
-| Beer  | 2    | 1    | 1    | **1**             |
-| Ale   | 1    | 3    | 2    | **2**             |
+| Product | Corn | Wheat | Sugar |
+| ------- | ---- | ----- | ----- |
+| Ale     | 1    | 1     | 2     |
+| Bread   | 1    | 4     | 1     |
 
-Linear programming could tell you what combination of beer and ale to produce to maximize the price it sells for given a limited amount of ingredients.
+| Product | Profit |
+| ------- | ------ |
+| Ale     | 4      |
+| Bread   | 5      |
+
+| Ingredient | Amount |
+| ---------- | ------ |
+| Corn       | 4      |
+| Wheat      | 12     |
+| Sugar      | 9      |
+
+</div>
 
 ### Constraints
 
-Say you have:
+The **constraints** in this problem, given the amount of ingredients we have and how much ingredients you need to produce ale $$A$$ and bread $$B$$, are the following:
 
-```
-3 corn
-4 hops
-5 malt
-```
-
-The **constraints** in this problem, given the amount of ingredients we have and how much ingredients **B**eer and **A**le take, would be the following:
-
-```
-Corn: 2B + 1A <= 3
-Hops: 1B + 3A <= 4
-Malt: 5B + 2A <= 5
-```
+| Ingredient | Used per $$A$$ | Used per $$B$$ | Amount | Constraint       |
+| ---------- | -------------- | -------------- | ------ | ---------------- |
+| Corn       | 1              | 1              | 4      | $$A + B ≤ 4$$    |
+| Wheat      | 1              | 4              | 12     | $$A + 4B ≤ 12$$  |
+| Sugar      | 2              | 1              | 6      | $$2A + B ≤ 9$$   |
+|            |                |                |        | $$A ≥ 0, B ≥ 0$$ |
 
 Each constraint makes sure we don't use more of any ingredient than we have.
-Additionally, we also constrain on producing a nonnegative amount either drink:
-
-```
-B >= 0
-A >= 0
-```
-
-### Feasibility
-
-In Brewer's problem, a **solution** would consist of the amount of beer and ale you want to produce. A **feasible solution** is one that
-satisfies our constraints.
-
-For example, some feasible solutions for this problem:
-
-**1 beer, 1 ale**: uses 3 corn, 4 hops, 3 malt  
-**0 beer, 0 ale**: uses no ingredients
-
-and some infeasible solutions:
-
-**-1 beer, 0 ale**: we can't produce negative of a drink  
-**4 beer, 0 ale**: uses 8 corn, more than the 4 we have
-
-The set of feasible solutions for a problem is called the **zone of feasibilty**.
+Additionally, we also constrain on producing a nonnegative amount of either product.
 
 ### Optimality function
 
 The **optimality function** for a problem describes the value
-of solution -- in this case, the amount of money we make.
+of a solution, in this case, the amount of profit we make $$P$$.
+Given $$A$$ sells for 4 and $$B$$ for 5:
 
-```
-profit = 1B + 2A
-```
+| $$4A + 5B = P$$ |
+| --------------- |
 
-## What does "linear" mean?
+### Solutions and feasible solutions
+
+A **solution** would consist of the amount of $$A$$ and $$B$$ you want to produce. A **feasible solution** is one that
+satisfies our constraints.
+
+For example, some feasible solutions for this problem:
+
+- $$A=1, B=1$$: uses 2 corn, 5 wheat, 3 sugar
+- $$A=0, B=0$$: uses no ingredients
+
+and some infeasible solutions:
+
+- $$A=-1, B=0$$: we can't produce negative of a product
+- $$A=0, B=4$$: uses 16 wheat, more than the 12 we have
+
+### Feasible region
+
+The set of feasible solutions for a problem is called the **feasible region**.
+
+## The feasible region as a skating rink
+
+To illustrate how linear programming works, we will use
+a skating rink as an analogy. In this scenario,
+an inclined plane will represent our solution space, with
+the incline of the plane matching the optimality function.
+Lower down represents more optimal/profitable solutions.
+
+<img src="/images/linear_programming/graph_tilting.gif" alt="Plane tilting according to optimality function" />
+
+Ideally we would skate down hill forever and make infinite money.
+However, each of our constraints sections our hill into a feasible
+section of solutions and an infeasible region.
+Because each of our constraints are linear and divide our solution space
+using straight lines, they combine
+to section our hill into a convex polygon of feasible solutions: the feasible region, aka our skating rink:
+
+<img src="/images/linear_programming/constraints_appearing.gif" alt="Constraints popping in to section skate rink into feasible region" />
+
+We'll use the term "constraint" to equivalently mean the borders depicted above through this article. Linear constraints will always lead to one of 3 cases:
+
+1. An unbounded feasible region, like our region above before we add the 3rd constraint. **No guaranteed optimal solution** as we may be able to continue in a direction forever.
+2. A feasible region that is a convex polygon. **Always solvable using linear programming**.
+3. No feasible region. This could occur if we added in a constraint that covered our entire feasible region. **No solution in this case**.
+
+Our current problem matches the second case, which is always solvable using linear programming.
+
+<details>
+<summary>What does "linear" mean exactly?</summary>
 
 "Linear" in math describes an equation where variables have only
 constant coefficients:
 
-Linear: 10 = 5b + 2c  
-Linear: 8 ≥ b + 0.5c  
-Not linear 4 = b<sup>2</sup> + c  
-Not linear: 5 = log(b)
+- Linear: $$10 = 5b + 2c$$
+- Linear: $$8 ≥ b + 0.5c$$
+- Not linear: $$4 = b^2 + c$$
+- Not linear: $$5 = log(b)$$
 
-Our example problem is linear as the amount of ingredients used and the profit we make scales linearly with the amount of drinks produced, allowing us to express each part of the problem as a [linear expression](https://www.cuemath.com/algebra/linear-equations/). If something funky happened like the profit per drink going down with higher production (maybe you satisfy all the demand for beer), linear programming would not be applicable.
+Our example problem is linear as the amount of ingredients used and the profit we make scales linearly with the amount of products produced, allowing us to express each part of the problem as a [linear expression](https://www.cuemath.com/algebra/linear-equations/). If something funky happened like the profit per product going down with higher production (maybe you satisfy all the demand for bread), linear programming would not be applicable. Knowing a problem is linear makes it easier to solve.
 
-Knowing a problem is linear makes it easier to solve. Linear constraints
-end up forming a zone of feasibility (set of solutions) that is a convex polygon (polygon without any inward pointing edges) that we can
-navigate through linear programming to find an optimal solution.
+</details>
 
-## Skateboarding to a solution
+### Two key properties of linear programming problems
 
-### Brewer's problem as a skating rink
+Because our feasible region
+is a convex polygon, and because the optimality function leads
+in a constant direction (down hill) no matter where are, we can realize two important
+properties of our feasible region:
 
-To illustrate how linear programming works, imagine you
-are a skateboarder trying to find the solution. In this scenario,
-an inclined hill will represent the solution space, with
-the incline of the hill representing the optimality function.
-Lower down represents more optimal/profitable solutions. We will
-let gravity naturally take us down hill to get to the solution.
+1. **The optimal solution will always be at one of the corners**. If
+   we are in the middle of the feasible region or on a constraint, we can just continue to slide down slope
+   to a corner of the region get to a more optimal solution.
+2. **We will never get stuck in an inset portion of the
+   region moving downhill unless it is the optimal solution**. This
+   is due to the region being convex.
 
-IMAGE NEEDED
+If we
+were to drop a ball anywhere in our rink, it would naturally fall down
+to the optimal point due to the above properties:
 
-Ideally we would skate down hill forever and make infinite money.
-However, each of our constraints sections our hill into a feasible
-section of solutions and an infeasible section:
+<img src="/images/linear_programming/ball_rolling.gif" alt="Ball rolling" />
 
-IMAGE NEEDED
+Our linear programming solution will involve traveling downhill along the perimeter of the feasible region until we can travel downhill
+no further, at which point we know we are the optimal solution.
 
-Because each of our constraints are linear and divide our solution space
-using straight lines, they combine
-to section our hill into a convex polygon of feasible solutions.
+## Skating our way to the solution
 
-IMAGE NEEDED
-
-Linear constraints will always lead to a feasibility zone that is either a single convex polygon or empty: you can understand why this is by attempting
-to come up with a set of linear constraints that form a non convex
-polygon or multiple polygons (it's impossible).
-
-### Skating our way to the solution
+### Picking a starting point
 
 To find an optimal solution, we will use as a starting off point
-a solution on any of the corners of the polygon. We will
-start at (0A, 0B) as it is an easy corner to come up with.
+any corner of the feasible region, grabbing onto both the constraints
+forming the corner. We will
+start at $$(A=0, B=0)$$ as it is an easy corner to come up with.
 
-IMAGE NEEDED
+<img src="/images/linear_programming/starting_point.png" alt="Robot standing at point A=0, B=0">
 
-From our starting point, we will travel downhill along edges
-until we land at the lowest corner.
+### Skating downhill
 
-IMAGE NEEDED
+From our starting point, we will travel downhill along constraints
+until we land at the lowest corner. Each step of our process will involve the following:
 
-Each step of our process will involve the following
+1. Pick a constraint we are holding onto that we can push off of
+   to go downhill. If we can push multiple ways to go downhill, we
+   can choose either direction arbitrarily, as moving downhill in any direction is bringing us closer to the solution and we [don't need to worry about getting stuck in a non-optimal corner](#two-key-properties-of-linear-programming-problems).
+2. Figure out which corner we will land at after pushing.
+3. Push off the constraint and land gracefully at the new corner.
 
-1. Pick an edge we are holding onto that we can push off of
-   to go downhill. 1. If we can push multiple ways to go downhill, we
-   can choose either direction arbitrarily, assured we are still
-   traveling downhill towards a more optimal solution.
-2. Figure out which vertex we will land at after pushing.
-3. Push off the edge and land at the new vertex.
+<img src="/images/linear_programming/step2.gif" alt="Performing a step by pushing off the ale constraint and landing at the sugar constraint">
 
 We continue to do the above until we can no longer travel
-downhill by pushing off of an edge, which will only happen
+downhill by pushing off of a constraint, which will only happen
 after arriving at the optimal solution.
+
+### The entire skating process
 
 Our process then is the following:
 
-1. Pick an initial vertex of the zone of feasibility to start at.
+1. Pick an initial corner of the feasible region to start at.
 2. Continue to do the following as long as you can travel downhill:
-   1. Pick an edge that we can push downhill off of.
+   1. Pick a constraint that we can push downhill off of.
    2. Figure out where we will land after pushing off.
-   3. Push off the edge and land at the new vertex.
-3. Return the final vertex we have landed at as the solution.
+   3. Push off the constraint and land at the new corner.
+3. Return the final corner we have landed at as the solution.
 
-### Formalizing our skating through matrices
+<img src="/images/linear_programming/full_process.gif" alt="Using our process to skate from the starting point to the optimal point">
 
-Given our skating process, we will try to formalize it using
-an actual algorithm.
+## Creating variables to represent leftover ingredients
 
-#### Creating variables to represent leftover ingredients
+Before we can begin to formalize our skating algorithm, we need to do one step to redefine how we look at our problem.
+Currently, our constraints are described as inequalities in terms solely of $$A$$ and $$B$$:
 
-Currently, our constraints are described as inequalities:
+- Corn: $$A + B ≤ 4$$
+- Wheat: $$A + 4B ≤ 12$$
+- Sugar: $$3A + B ≤ 9$$
+- Ale: $$A ≥ 0$$
+- Bread: $$B ≥ 0$$
 
-```
-Corn: 2B + 1A <= 3
-Hops: 1B + 3A <= 4
-Malt: 1B + 2A <= 5
-B >= 0
-A >= 0
-```
+However, this formulation does not make it easy to
+pick corners of the feasible region, which we would like to
+do as [we know our solution is at one of the corners](#two-key-properties-of-linear-programming-problems).
+To facilitate picking corners, we will introduce new variables representing
+how much of each ingredient we have leftover to do this. We will use $$LC, LW, LS$$
+as variables representing our leftover corn, wheat, and sugar,
+and redefine our inequalities as equalities involving leftovers.
+For example, $$A + B + LC = 5$$ means "The amount of corn we're using to produce ale and bread, plus the amount of leftover corn, is equal to our total corn available."
 
-We want to describe our constraints as a system of linear equations.
-This will allow us to use elimination to solve things, very similar
-to [solving a system of linear equations using elimination](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:solving-systems-elimination/a/elimination-method-review) as you may
-have done in algebra class.
-
-We will introduce new variables representing
-how much of each ingredient we have leftover to do this. We then redescribe
-our ingredient constraints using these variables. The entire
+The entire
 formulation of our problem now looks like the following:
 
-```
-Equalities
-----------
-Corn: 2B + 1A + leftover corn = 3
-Hops: 1B + 3A + leftover hops = 4
-Malt: 1B + 2A + leftover malt = 5
+**Constraints**
 
-Constraints
------------
-A >= 0
-B >= 0
-leftover corn (LC) >= 0
-leftover hops (LH) >= 0
-leftover malt (LM) >= 0
+- Corn: $$A + B + LC = 5$$
+- Wheat: $$A + 4B + LW = 12$$
+- Sugar: $$3A + B + LS = 9$$
+- $$A ≥ 0$$
+- $$B ≥ 0$$
+- $$LC ≥ 0$$
+- $$LW ≥ 0$$
+- $$LS ≥ 0$$
 
-Optimality function
--------------------
-1B + 2A = profit
-```
+**Optimality Function**
 
-Each of our constraints now is a much simpler inequality. Additionally,
-each variable now represents the distance from one of the edges
-of the feasibility zone. Because each corner is a point that is directly on
-two of the edges/constraints, this will mean we can choose a solution
-at one of the corners by setting two variables to 0.
+- $$4A + 5B = P$$
 
-#### Formatting as a system of equations
+In future formulations, we will omit that our variables must be nonnegative and just keep in mind that this is the case.
 
-For solving the problem, we will focus on the equations, giving
-us the following
+### Using basises to pick corners
 
-```
-System of equations
--------------------
-1A + 2B + LC = 3
-3A + 1B + LH = 4
-2A + 1B + LM = 5
+Having variables representing the leftover of each ingredient now means
+they represent our distance from the constraints: when the leftover amount of an ingredient is 0 we are on the constraint representing it.
+This makes it easy to **select a corner of our feasible region (where
+two constraints intersect) by setting any two of our variables two zero.**
 
-Optimality function
--------------------
-2A + 1B = profit
-```
+We call a choice of two variables we set to 0 arrive at a corner a **basis**, with each **basis**
+corresponding to a corner of the feasible region. More generally, a basis could also represent the intersection of two constraints outside of the feasible region, but we
+will be careful to stay on the perimeter of the feasible region while skating. Visible basises are labeled below,
+with feasible ones being labeled green and unfeasible ones red:
 
-To facilitate [solving by elimination](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:solving-systems-elimination/a/elimination-method-review), we give each
-variable its own column
+<img src="/images/linear_programming/basises.png" alt="Labeled basises" />
 
-```
-System of equations
--------------------
-1A + 2B + 1LC + 0LH + 0LM = 3
-3A + 1B + 0LC + 1LH + 0LM = 4
-2A + 1B + 0LC + 0LH + 1LM = 5
+Similar to using "constraint" to refer to an edge, we will also here use "basis" to refer to a corner of the feasible region through the rest of this article.
 
-Optimality function
--------------------
-2A + 1B + 0LC + 0LH + 0LM = profit
-```
+## Formalizing our skating through math
 
-#### Reducing many solutions to a single one
+Given our skating process, let's formalize it using
+an actual algorithm.
 
-As it stands, our system of equations has several solutions.
-This is because we have more variables than equations. To illustrate
-this, take the very simple equation:
+### Step 1: picking an initial basis to start at
 
-```
-x = 2
-```
-
-This has a only one solution (if you can even call it one)
-of x being 2. However, if we introduce another variable
-
-```
-x + y + z = 2
-```
-
-Now there are a lot of solutions: (x=2, y=0, z=0), (x=1, y=1, z=0), (x=.5, y=1, z=.5), so on.
-
-To simplify things, we can set some variables to zero so that there is
-only one solution. For example, if we say x and y are 0, then we have again
-
-```
-x + 0 + 0 = 2
-```
-
-And it becomes easy to see the single solution of x = 2. We call the variables we set to 0 **basic variables**, resulting in a solution consisting of non-zero values for the
-**nonbasic** variables. Our goal is
-to make the number of nonbasic variables the same as the number
-of equations: this will ensure there is only one solution.
-
-### Step 1: picking an initial corner
+<img src="/images/linear_programming/starting_point.png" alt="Robot standing at point A=0, B=0">
 
 For our Brewer's problem instance:
 
-```
-1A + 2B + 1LC + 0LH + 0LM = 3
-3A + 1B + 0LC + 1LH + 0LM = 4
-2A + 1B + 0LC + 0LH + 1LM = 5
-```
+- $$A + B + LC = 4$$
+- $$A + 4B + LW = 12$$
+- $$3A + B + LS = 9$$
 
-We need to zero out 2 variables so we have 3 remaining variables = 3 remaining equations. This will give a single solution to start at. Zeroing A and B gives us a very obvious solution, so we will start with zeroing those (although you could zero out others if you want).
+We need to zero out 2 variables to choose an initial basis to start at. Zeroing $$A$$ and $$B$$ gives us a very obvious and obviously feasible solution of the remaining variables, so we will start with those as our basis (although you could zero out others if you want to start somewhere else).
 
-```
-(1A) + (2B) + 1LC + 0LH + 0LM = 3
-(1A) + (1B) + 0LC + 1LH + 0LM = 4
-(2A) + (1B) + 0LC + 0LH + 1LM = 5
+We will indicate which variables are currently in our basis
+by surrounding them with brackets:
 
-Nonbasic variables: LC = 3, LH = 4, LM = 5
-Basic variables: A = 0, B = 0
-```
+- $$[A] + [B] + LC = 4$$
+- $$[A] + [4B] + LW = 12$$
+- $$[3A] + [B] + LS = 9$$
+- $$[4A] + [5B] = P$$
+- Basic variables: $$A = 0, B = 0$$
+
+Resulting in the following values for all our variables:
+
+- Basis variables (must be 0): $$A = 0, B = 0$$
+- Non-basis variables: $$LC = 4, LW = 12, LS = 9$$
+- $$P = 0$$
 
 Great, we have a solution! However, the issue with this solution
-is it is not optimal.
+is it is not optimal as we are not making any money.
 
-#### Step 2.1: Finding an edge to push off of
+### Step 2.1: Finding a constraint to push off of
+
+<img src="/images/linear_programming/step21.png" alt="About to push off of ale constraint">
 
 Looking at our optimality function
 
-```
-2A + 1B + 0LC + 0LH + 0LM = profit
-```
+- $$[4A] + [5B] = P$$
 
-We would rather not zero out the ale and beer we produce as
-they contribute to our profit. It would be better to zero out something
-like leftover corn, which doesn't make us any money. To move
+We would rather not zero out the ale and bread we produce as
+they contribute to our profit: right now we aren't making any money with both being 0. It would be better to zero out something
+like leftover corn, which according to the optimality function doesn't make us any money.
+
+To move
 towards a more optimal solution, we look at the optimality function to
 find a variable with a positive coefficient, indicating it would
-be more profitable to not be 0. We can choose
-either A or B now, but let's arbitrarily choose A.
+be more profitable to not be 0. We then "push off" of the constraint for it by making it non-0, sliding along
+the other constraint we keep in the basis.
 
-#### Step 2.2: Figuring out where we will land
+We can choose
+to take either $$A$$ or $$B$$ out of the basis now, but let's arbitrarily choose $$A$$. Now, we need to figure out which constraint we will land at after pushing off of the $$A$$ constraint.
 
-Now we know we'd like A to not be 0, i.e. we'd like to make it nonbasic.
-To do this, we need to exchange it with an existing nonbasic variable
-so that the number of nonbasic variables remains equal to the
-number of equations.
+### Step 2.2: Figuring out where we will land
 
-Finding the nonbasic variable we will swap with A is equivalent
-to finding the equation we will keep A in. Because all of our
-variables must be positive, we need to find the equation that keeps
-the right side of our systems of equations positive after doing elimination.
+<img src="/images/linear_programming/land_at_step.png" alt="Plan to land at sugar constraint">
 
-Looking at our system
+The further we move from the $$A$$ constraint after pushing off, the larger the value of $$A$$ is.
+Thus we can find the first constraint we run into when sliding along $$B$$ by
+finding the other constraint whose intersection with $$B$$ is at the smallest value of $$A$$.
 
-```
-[1A] + [2B] + 1LC + 0LH + 0LM = 3
-[1A] + [1B] + 0LC + 1LH + 0LM = 4
-[2A] + [1B] + 0LC + 0LH + 1LM = 5
-```
+[Finding the intersections of the $$B$$ constraint with the other constraint can be done by setting both their variables to 0](#using-basises-to-pick-corners). Looking at our system
 
-This occurs with the third equation. We figure this out by
-seeing it has the smallest proportion of right side (5) to coefficient of A (2) of 5/2, compared to (3/1 = 3) and (4/1 = 4) for the first two equations. Consequently, LC is the variable we want to make 0 in exchange for A.
+1. $$[A] + [B] + LC = 4$$
+2. $$[A] + [4B] + LW = 12$$
+3. $$[3A] + [B] + LS = 9$$
 
-#### Step 2.3: Moving to the new corner
+We get the following values for $$A$$ when we set $$B$$ and another variable to 0.
 
-Now that we have the variable we want to make non-0 (A), and the
-equation we want it be non-0 in, we can use elimination to simplify our equation
+1. Basis of $$(B, LC)$$: $$A + [B] + [LC] = 4, A = 4$$
+2. Basis of $$(B, LW)$$: $$A + [4B] + [LW] = 12, A = 12$$
+3. Basis of $$(B, LS)$$: $$3A + [B] + [LS] = 9, A = 3$$
 
-Equation 3
+We see here that the $$(B, LS)$$ basis gives the smallest value for A, so we know
+$$(B, LS)$$ is the first basis we run as we slide along the $$B$$ constraint.
 
-```
-([2A] + [1B] + 0LC + 0LH + 1LM = 5) / 2
-___________________________________________
- 1A  + [.5B] + 0LC  +0LH + [.5LM] = 2.5
-```
+### Step 2.3: Landing gracefully at our new basis
 
-Equation 1
+<img src="/images/linear_programming/step23.gif" alt="Plan to land at sugar constraint">
 
-```
-   [1A] + [2B] + 1LC + 0LH + 0LM  = 3
--  1A   + [.5B] + 0LC  +0LH + [.5LM] = 2.5
-___________________________________________
-   0A  + [1.5B] + 1LC + 0LH + [-.5LM] = .5
-```
+We have figured out the new basis we will land at: $$(B, LS)$$.
 
-Equation 2
+- $$A + [B] + LC = 4$$
+- $$A + [4B] + LW = 12$$
+- $$3A + [B] + [LS] = 9$$
+- $$4A + [5B] = P$$
 
-```
-  [1A] + [1B] + 0LC + 1LH + 0LM = 4
-- 1A   + [.5B] + 0LC  +0LH + [.5LM] = 2.5
-___________________________________________
-  0A  + [.5B] +  0LC + 1LH + [-.5LM] = .5
-```
+Now all we need to do is reformulate our system of equations
+to make steps 2.1 and 2.2 easy to repeat.
 
-Resulting system with nonbasic A and basic LM:
+[Step 2.1](#step-21-finding-a-constraint-to-push-off-of) was easy because the optimality function made it obvious how
+our basis variables contributed to our profit, and we would like this to again be obvious for our new basis.
+To achieve this, we will use [elimination](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:solving-systems-elimination/a/elimination-method-review) to remove our now non-basis variable $$A$$ from our current phrasing of the optimality function. We will eliminate it using the equation with our new basis variable $$LS$$ to get an optimality function in terms only of our basis variables:
 
-```
-0A  + [1.5B] + 1LC + 0LH + [-.5LM] = .5
-0A  + [.5B] +  0LC + 1LH + [-.5LM] = .5
-1A  + [.5B] + 0LC  +0LH + [.5LM] = 2.5
-```
+|                                        |
+| -------------------------------------: |
+|                    $$(4A + [5B] = P)$$ |
+|    − $$(4/3) * (3A + [B] + [LS] = 9)$$ |
+| ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
+|     $$[(11/3)B] - [(4/3)LS] = P - 12$$ |
+| ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
+|     $$[(11/3)B] - [(4/3)LS] + 12 = P$$ |
 
-To help us figure out where to go next, we also restate
-our optimality function
+Now two things are obvious again:
 
-```
-  [2A] + [1B] + 0LC + 0LH + 0LM = profit
-- [2A] + [1B] + 0LC + 0LH + 1LM = 5
-___________________________________
-whatever
-```
+1. Our profit given both $$B$$ and $$LS$$ being 0 is 12. Better than our profit of 0 from before, our process is working!
+2. $$LS$$ would not contribute to the profit as it is negative in the optimality function. However, $$B$$ still would contribute to our profit as it is positive: this is the constraint we will want to push off of next.
 
-Now, we are set up to continue finding and pushing off of edges.
+We can use the same process to simplify our other equations:
+
+<details><summary>Simplifying the other equations</summary>
+
+Given our equations
+
+- $$A + [B] + LC = 4$$
+- $$A + [4B] + LW = 12$$
+- $$3A + [B] + [LS] = 9$$
+
+<div class="flex-horiontal">
+
+|                                        |
+| -------------------------------------: |
+|                 $$(A + [B] + LC = 4)$$ |
+|    − $$(1/3) * (3A + [B] + [LS] = 9)$$ |
+| ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
+|    $$-[(1/3)LS] + [(2/3)B]  + LC = 1$$ |
+
+|                                        |
+| -------------------------------------: |
+|               $$(A + [4B] + LW = 12)$$ |
+|    − $$(1/3) * (3A + [B] + [LS] = 9)$$ |
+| ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
+|    $$-[(1/3)LS] + [(11/3)B] + LW = 9$$ |
+
+|                                        |
+| -------------------------------------: |
+|      $$(1/3) * (3A + [B] + [LS] = 9)$$ |
+| ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
+|        $$[(1/3)LS] + [(1/3)B]  A = 3$$ |
+
+</div>
+
+</details>
+
+- $$-[(1/3)LS] + [(2/3)B] + LC = 1$$
+- $$-[(1/3)LS] + [(11/3)B] + LW = 9$$
+- $$[(1/3)LS] + [(1/3)B] + A = 3$$
+- $$-[(4/3)LS] + [(11/3)B] + 12 = P$$
 
 ### Step 3: returning the solution
 
+<details>
+<summary> Repeating step 2 twice more to get to the optimal solution </summary>
+We repeat step 2 two more times to get to the optimal solution. First, because B is positive in the optimality function,
+taking B out of the basis and LC in to get to:
+
+- $$[(3/2)LC] - [(1/2)LS] + B = (3/2)$$
+- $$-[(11/2)LC] + [(3/2)LS] + LW = (7/2)$$
+- $$-[(1/2)LC] + [(1/2)LS] + A = (5/2)$$
+- $$-[(11/2)LC] + [(1/2)LS] + (35/2) = P$$
+
+and then, because LS is now positive in the optimality function,
+taking LS out of the basis and LW in to get:
+
+- $$[(7/6)LC] + [(1/3)LW] + B = (8/3)$$
+- $$-[(11/3)LC] + [(2/3)LW] + LS = (7/3)$$
+- $$[(4/3)LC] - [(1/3)LW] + A = (4/3)$$
+- $$-[(11/3)LC] - [(2/3)LW] + (56/3) = P$$
+
+</details>
+
+<img src="/images/linear_programming/at_end.png" alt="Robot at the optimal point">
+
 Eventually, we reach a form of the optimality function where
-none of the variables in the basis are contributing to the profit:
+none of the variables in the basis are contributing to the profit, at basis $$(LC, LW)$$.
 
-SOMETHING NEEDED
+- $$[(7/6)LC] + [(1/3)LW] + B = (8/3)$$
+- $$-[(11/3)LC] + [(2/3)LW] + LS = (7/3)$$
+- $$[(4/3)LC] - [(1/3)LW] + A = (4/3)$$
+- $$-[(11/3)LC] - [(2/3)LW] + (56/3) = P$$
 
-This represents us being at the optimal solution: we can
-return the current solution to the equation.
+This means we are most optimally producing
+products by using up all of our corn and wheat, with some sugar
+remaining that we don't do anything with. We can
+return the current values we have as our optimal solution:
+
+- $$A=4/3$$
+- $$B=8/3$$
+- $$P=56/3$$
+
+Nice, we've used linear programming to find the optimal solution!
+
+## Conclusion
+
+Hopefully our skating analogy made it clear what linear programming
+is doing: navigating downhill (in the direction of the optimality function)
+along edges of the feasible region (constraints), evaluating corners (basises) of the region
+until we reach a point where we can't go downhill any further (the optimal solution). While the implementation of the
+algorithm itself
+can seem be a bit cumbersome (mainly our step to [reorganize stuff](#step-23-landing-gracefully-at-our-new-basis)), in reality what it's doing is quite simple: moving downhill along the edges until it gets to the solution.
+
+<details><summary>Applying linear programming in higher dimensions</summary>
+
+Because our example problem had only two objectives (ale and bread),
+this resulted in two axes of our solution space, making the problem
+two dimensional. However, even in higher dimensions, the process would still
+be the same: follow the objective function along constraints towards corners of the
+feasible region until we can't follow it any further. In this case,
+the feasible region would not be a polygon but a multidimensional [polytope](https://en.wikipedia.org/wiki/Polytope),
+but there's no reason why our algorithm would break in higher dimensions.
+
+For example, you
+could try imagining maybe a 3 dimensional problem having wind directionally
+across the space. Imagining 3+ dimensions might be hard though 🫤.
+
+</summary>

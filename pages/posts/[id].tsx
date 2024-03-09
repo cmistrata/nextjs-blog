@@ -32,7 +32,9 @@ export default function Post({ postData }) {
   return (
     <Layout title={postData.title}>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <h1 className={utilStyles.headingXl} id="title">
+          {postData.title}
+        </h1>
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
