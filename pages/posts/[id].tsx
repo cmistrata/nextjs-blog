@@ -50,7 +50,11 @@ export default function Post({ postData, id }) {
   }
   if (postData.previewImage) {
     metas.push(
-      <meta key="image" property="og:image" content={postData.previewImage} />
+      <meta
+        key="image"
+        property="og:image"
+        content={`https://www.charliemistrata.com${postData.previewImage}`}
+      />
     );
   }
   return (
