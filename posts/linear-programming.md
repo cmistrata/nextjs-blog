@@ -96,24 +96,27 @@ Lower down represents more optimal/profitable solutions.
 <img src="/images/linear_programming/graph_tilting.gif" alt="Plane tilting according to optimality function" />
 
 Ideally we would skate down hill forever and make infinite money.
-However, each of our constraints sections our hill into a feasible
-section of solutions and an infeasible region.
+However, each of our constraints divides our plane into a feasible
+section of solutions and an infeasible section.
 Because each of our constraints are linear and divide our solution space
 using straight lines, they combine
 to section our hill into a convex polygon of feasible solutions: the feasible region, aka our skating rink:
 
 <img src="/images/linear_programming/constraints_appearing.gif" alt="Constraints popping in to section skate rink into feasible region" />
 
-We'll use the term "constraint" to equivalently mean the borders depicted above through this article. Linear constraints will always lead to one of 3 cases:
+We'll use the term "constraint" to equivalently mean the borders depicted above through this article.
+
+<details><summary>When will the feasibility region be a convex polygon?</summary>
+
+Linear constraints will generally lead to one of 3 cases:
 
 1. An unbounded feasible region, like our region above before we add the 3rd constraint. **No guaranteed optimal solution** as we may be able to continue in a direction forever.
 2. A feasible region that is a convex polygon. **Always solvable using linear programming**.
 3. No feasible region. This could occur if we added in a constraint that covered our entire feasible region. **No solution in this case**.
 
-Our current problem matches the second case, which is always solvable using linear programming.
+</details>
 
-<details>
-<summary>What does "linear" mean exactly?</summary>
+<details><summary>What does "linear" mean exactly?</summary>
 
 "Linear" in math describes an equation where variables have only
 constant coefficients:
@@ -147,7 +150,7 @@ to the optimal point due to the above properties:
 
 <img src="/images/linear_programming/ball_rolling.gif" alt="Ball rolling" />
 
-Our linear programming solution will involve traveling downhill along the perimeter of the feasible region until we can travel downhill
+The linear programming algorithm will involve traveling downhill along the perimeter of the feasible region until we can travel downhill
 no further, at which point we know we are the optimal solution.
 
 ## Skating our way to the solution
@@ -206,10 +209,12 @@ However, this formulation does not make it easy to
 pick corners of the feasible region, which we would like to
 do as [we know our solution is at one of the corners](#two-key-properties-of-linear-programming-problems).
 To facilitate picking corners, we will introduce new variables representing
-how much of each ingredient we have leftover to do this. We will use $$LC, LW, LS$$
+how much of each ingredient we have leftover to do this.
+
+We will use $$LC, LW, LS$$
 as variables representing our leftover corn, wheat, and sugar,
 and redefine our inequalities as equalities involving leftovers.
-For example, $$A + B + LC = 5$$ means "The amount of corn we're using to produce ale and bread, plus the amount of leftover corn, is equal to our total corn available."
+For example, $$A + B + LC = 4$$ means "The amount of corn we're using to produce ale and bread, plus the amount of leftover corn, is equal to our total corn available."
 
 The entire
 formulation of our problem now looks like the following:
@@ -262,7 +267,7 @@ For our Brewer's problem instance:
 - $$A + 4B + LW = 12$$
 - $$3A + B + LS = 9$$
 
-We need to zero out 2 variables to choose an initial basis to start at. Zeroing $$A$$ and $$B$$ gives us a very obvious and obviously feasible solution of the remaining variables, so we will start with those as our basis (although you could zero out others if you want to start somewhere else).
+We need to zero out 2 variables to choose an initial basis to start at. Using basis $$(A, B)$$ gives us a very obvious and obviously feasible solution of the remaining variables, so we will start with those (although you could zero out others if you want to start somewhere else).
 
 We will indicate which variables are currently in our basis
 by surrounding them with brackets:
@@ -308,10 +313,10 @@ to take either $$A$$ or $$B$$ out of the basis now, but let's arbitrarily choose
 <img src="/images/linear_programming/land_at_step.png" alt="Plan to land at sugar constraint">
 
 The further we move from the $$A$$ constraint after pushing off, the larger the value of $$A$$ is.
-Thus we can find the first constraint we run into when sliding along $$B$$ by
+Thus, we can find the first constraint we run into when sliding along the $$B$$ constraint by
 finding the other constraint whose intersection with $$B$$ is at the smallest value of $$A$$.
 
-[Finding the intersections of the $$B$$ constraint with the other constraint can be done by setting both their variables to 0](#using-basises-to-pick-corners). Looking at our system
+[Finding the intersection of the $$B$$ constraint with another constraint can be done by setting both their variables to 0](#using-basises-to-pick-corners). Looking at our system
 
 1. $$[A] + [B] + LC = 4$$
 2. $$[A] + [4B] + LW = 12$$
@@ -324,7 +329,7 @@ We get the following values for $$A$$ when we set $$B$$ and another variable to 
 3. Basis of $$(B, LS)$$: $$3A + [B] + [LS] = 9, A = 3$$
 
 We see here that the $$(B, LS)$$ basis gives the smallest value for A, so we know
-$$(B, LS)$$ is the first basis we run as we slide along the $$B$$ constraint.
+$$(B, LS)$$ is the first basis we encounter as we slide along the $$B$$ constraint.
 
 ### Step 2.3: Landing gracefully at our new basis
 
@@ -342,7 +347,7 @@ to make steps 2.1 and 2.2 easy to repeat.
 
 [Step 2.1](#step-21-finding-a-constraint-to-push-off-of) was easy because the optimality function made it obvious how
 our basis variables contributed to our profit, and we would like this to again be obvious for our new basis.
-To achieve this, we will use [elimination](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:solving-systems-elimination/a/elimination-method-review) to remove our now non-basis variable $$A$$ from our current phrasing of the optimality function. We will eliminate it using the equation with our new basis variable $$LS$$ to get an optimality function in terms only of our basis variables:
+To achieve this, we will use [elimination](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:systems-of-equations/x2f8bb11595b61c86:solving-systems-elimination/a/elimination-method-review) to remove our now non-basis variable $$A$$ from our current phrasing of the optimality function, replacing it with our new basis variable $$LS$$ to get an optimality function in terms only of our basis variables:
 
 |                                        |
 | -------------------------------------: |
@@ -368,8 +373,6 @@ Given our equations
 - $$A + [4B] + LW = 12$$
 - $$3A + [B] + [LS] = 9$$
 
-<div class="flex-horiontal">
-
 |                                        |
 | -------------------------------------: |
 |                 $$(A + [B] + LC = 4)$$ |
@@ -388,9 +391,7 @@ Given our equations
 | -------------------------------------: |
 |      $$(1/3) * (3A + [B] + [LS] = 9)$$ |
 | ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ |
-|        $$[(1/3)LS] + [(1/3)B]  A = 3$$ |
-
-</div>
+|       $$[(1/3)LS] + [(1/3)B] + A = 3$$ |
 
 </details>
 
@@ -401,8 +402,8 @@ Given our equations
 
 ### Step 3: returning the solution
 
-<details>
-<summary> Repeating step 2 twice more to get to the optimal solution </summary>
+<details><summary> Repeating step 2 twice more to get to the optimal solution </summary>
+
 We repeat step 2 two more times to get to the optimal solution. First, because B is positive in the optimality function,
 taking B out of the basis and LC in to get to:
 
@@ -455,14 +456,10 @@ can seem be a bit cumbersome (mainly our step to [reorganize stuff](#step-23-lan
 
 Because our example problem had only two objectives (ale and bread),
 this resulted in two axes of our solution space, making the problem
-two dimensional. However, even in higher dimensions, the process would still
+two dimensional. Very often though, we will have more that two objectives. Even in higher dimensions, the process would still
 be the same: follow the objective function along constraints towards corners of the
 feasible region until we can't follow it any further. In this case,
-the feasible region would not be a polygon but a multidimensional [polytope](https://en.wikipedia.org/wiki/Polytope),
+the feasible region would not be a 2d polygon but a multidimensional [polytope](https://en.wikipedia.org/wiki/Polytope),
 but there's no reason why our algorithm would break in higher dimensions.
 
-For example, you
-could try imagining maybe a 3 dimensional problem having wind directionally
-across the space. Imagining 3+ dimensions might be hard though 🫤.
-
-</summary>
+</details>
