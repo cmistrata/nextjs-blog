@@ -14,6 +14,7 @@ import remarkPrism from "remark-prism";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+// @ts-ignore
 import rehypeMathjax from "rehype-mathjax";
 
 const postsDirectory = path.join(process.cwd(), "posts");
