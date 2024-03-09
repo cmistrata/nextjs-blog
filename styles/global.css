@@ -10,6 +10,10 @@ body {
   color: white;
 }
 
+.small-text {
+  font-size: min(1rem, 3vw);
+}
+
 main {
   --article-background-color: rgb(31, 31, 32);
   background-color: var(--article-background-color);

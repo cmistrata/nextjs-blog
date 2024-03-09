@@ -43,12 +43,16 @@ selling prices, and the amount of ingredients we have.
 
 The **constraints** in this problem, given the amount of ingredients we have and how much ingredients you need to produce ale $$A$$ and bread $$B$$, are the following:
 
+<div class="small-text">
+
 | Ingredient | Used per $$A$$ | Used per $$B$$ | Amount | Constraint       |
 | ---------- | -------------- | -------------- | ------ | ---------------- |
 | Corn       | 1              | 1              | 4      | $$A + B ≤ 4$$    |
 | Wheat      | 1              | 4              | 12     | $$A + 4B ≤ 12$$  |
 | Sugar      | 2              | 1              | 6      | $$2A + B ≤ 9$$   |
 |            |                |                |        | $$A ≥ 0, B ≥ 0$$ |
+
+</div>
 
 Each constraint makes sure we don't use more of any ingredient than we have.
 Additionally, we also constrain on producing a nonnegative amount of either product.
