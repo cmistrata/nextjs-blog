@@ -48,6 +48,8 @@ img {
 
 .flex-horizontal {
   display: flex;
+  max-width: 100vw;
+  flex-wrap: wrap;
 }
 
 table {
@@ -56,6 +58,7 @@ table {
   background: #282828;
   border-radius: 5px;
   box-shadow: 0 .1rem 1rem -.5rem rgba(0,0,0,.4);
+  flex-shrink: 1;
 }
 
 th, td {
