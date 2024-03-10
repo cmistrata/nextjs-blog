@@ -48,6 +48,15 @@ export default function Layout({
   const metaElements = Object.entries(metadata)?.map(([key, value]) => (
     <meta key={key} property={key} content={value} />
   ));
+  if (!("og:image" in metadata)) {
+    metaElements.push(
+      <meta
+        key={"og:image"}
+        property={"og:image"}
+        content={"https://www.charliemistrata.com/images/default_og_image.png"}
+      />
+    );
+  }
 
   const currentTimeInSeconds = Date.now() / 1000;
   const pageHead = (
