@@ -2,6 +2,7 @@
 title: "Knuth-Morris-Pratt algorithm for O(N) substring search"
 date: "2023-08-26"
 completed: true
+description: "A brief explanation of the Knuth-Morris-Pratt substring search algorithm."
 ---
 
 The [Knuth-Morris-Pratt substring algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm) is an algorithm
@@ -31,7 +32,7 @@ This algorithm is inefficient, but it might not be obvious why.
 To understand, let's break down what each step would be doing
 more specifically.
 
-### Inefficiency with repeated string equality checks.
+### Inefficiency with repeated string equality checks
 
 To think about what a string equality check is doing, let's take our first step from above:
 
@@ -59,7 +60,7 @@ keep examining characters of `S` and `W` until a mismatch. However,
 we should hopefully be able to avoid re-examining characters we
 already looked at in step 1.
 
-## How to take advantage of already looked at data.
+## How to take advantage of already looked at data
 
 To understand how to optimize by avoiding repeated checks, let's
 look at steps 1 through 3. Reminder that our superstring `S` is "babababababababooie" and substring `W` is "bababooie"

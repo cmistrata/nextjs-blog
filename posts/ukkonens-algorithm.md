@@ -2,6 +2,7 @@
 title: "Ukkonen's algorithm for O(n) suffix tree construction"
 date: "2023-08-22"
 completed: true
+description: "Understanding Ukkonen's algorithm as lazily yanking out tree branches from a growing tree."
 ---
 
 Ukkonen's algorithm is an algorithm for generating a suffix tree in O(n) time. It's surprisingly quick (at least to me), as suffix trees themselves store paths for strings totalling O(n<sup>2</sup>) length. And it also surprisingly complex for an O(n) algorithm. In this post, we'll go over from basics what Ukkonen's algorithm is doing and how.
@@ -274,7 +275,7 @@ To keep track of this, you take the following action at each step when adding a 
 
 1. Move along the current branch by 1, incrementing your `branch_distance` distance and `tree_distance`. If the current character doesn't match a current path on the tree, you will "fall off the tree", and will need to protrude out an internal branch to safely land on in step 3 of "Updating the position."
 
-#### Updating the position.
+#### Updating the position
 
 Conditionally do 1 of the following:
 

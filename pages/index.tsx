@@ -5,13 +5,10 @@ import utilStyles from "../styles/utils.module.css";
 export default function Home({ allPostsData }) {
   return (
     <Layout
-      metas={[
-        <meta
-          key="google-site-verification"
-          name="google-site-verification"
-          content="rbr68Nt3ykvHS24XXqyoUbLg3GrWmfS6vk_jcL1KC54"
-        />,
-      ]}
+      metadata={{
+        "google-site-verification":
+          "rbr68Nt3ykvHS24XXqyoUbLg3GrWmfS6vk_jcL1KC54",
+      }}
     >
       <h1>About Me</h1>
       <p>
@@ -20,7 +17,7 @@ export default function Home({ allPostsData }) {
       </p>
 
       <p>
-        I use this site as a place to dump notes on stuff I want to remember
+        I use this site as a place to write notes on stuff I want to remember
         into <Link href="/posts">posts</Link>. You can reach out to me at
         cmistrata@gmail.com or at my{" "}
         <Link href="https://www.linkedin.com/in/charlie-mistrata/">

@@ -7,15 +7,18 @@ import { GetStaticProps } from "next";
 
 export default function Posts({ allPostsData }) {
   return (
-    <Layout title="Posts">
+    <Layout title="Posts - Charlie Mistrata">
       <h1>Posts</h1>
       <ul className={utilStyles.list}>
-        {allPostsData.map(({ id, date, title }) => (
-          <li className={utilStyles.listItem} key={id}>
-            <Link href={`/posts/${id}#title`}>{title}</Link>
+        {allPostsData.map((postData) => (
+          <li className={utilStyles.listItem} key={postData.id}>
+            <h2 className="style-as-link">
+              <Link href={`/posts/${postData.id}`}>{postData.title}</Link>
+            </h2>
+            <span>{postData.description}</span>
             <br />
             <small className={utilStyles.lightText}>
-              <Date dateString={date} />
+              <Date dateString={postData.date} />
             </small>
           </li>
         ))}

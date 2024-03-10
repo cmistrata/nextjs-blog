@@ -29,6 +29,12 @@ svg {
 }
 
 a {
+  --link-color: rgb(77, 193, 243);
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a {
   color: rgb(77, 193, 243);
   text-decoration: none;
 }
@@ -37,7 +43,7 @@ a:hover {
   text-decoration: underline;
 }
 
-h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {
+h1:not(.style-as-link) > a, h2:not(.style-as-link) > a, h3:not(.style-as-link) > a, h4:not(.style-as-link) > a, h5:not(.style-as-link) > a, h6:not(.style-as-link) > a {
   color: inherit;
 }
 
@@ -127,12 +133,17 @@ code:not(.language-py) {
   text-wrap: nowrap;
 }
 
-h2 {
+h2.style-as-link {
+  margin-bottom: .1rem;
+  font-size: 1.15rem;
+}
+
+h2:not(.style-as-link) {
   margin-top: 2rem;
   margin-bottom: -1.8rem;
 }
 
-h2::after {
+h2:not(.style-as-link)::after {
   display: inline-block;
   content: "";
   border-top: .07rem solid rgb(70, 70, 70);

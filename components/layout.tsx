@@ -16,7 +16,7 @@ export const siteTitle = "Charlie Mistrata";
 interface LayoutProps {
   children: any;
   title?: string;
-  metas?: React.ReactElement[];
+  metadata?: { [key: string]: string };
 }
 
 function createCloudAnimationStyle(
@@ -32,18 +32,28 @@ function createCloudAnimationStyle(
   };
 }
 
-export default function Layout({ children, title = null, metas }: LayoutProps) {
+export default function Layout({
+  children,
+  title = null,
+  metadata,
+}: LayoutProps) {
+  metadata = metadata ?? {};
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  console.log(Object.entries(metadata));
+  const metaElements = Object.entries(metadata)?.map(([key, value]) => (
+    <meta key={key} property={key} content={value} />
+  ));
+
   const currentTimeInSeconds = Date.now() / 1000;
   const pageHead = (
     <Head>
       <title>{title ?? siteTitle}</title>
-      {metas}
+      {metaElements}
     </Head>
   );
   const clouds = isClient ? (
@@ -89,7 +99,9 @@ export default function Layout({ children, title = null, metas }: LayoutProps) {
       {/* content */}
       <Paper className={styles.container} elevation={3}>
         <Header />
-        <main> {children}</main>
+        <main>
+          <article> {children} </article>
+        </main>
       </Paper>
     </ThemeProvider>
   );
