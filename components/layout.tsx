@@ -44,7 +44,6 @@ export default function Layout({
     setIsClient(true);
   }, []);
 
-  console.log(Object.entries(metadata));
   const metaElements = Object.entries(metadata)?.map(([key, value]) => (
     <meta key={key} property={key} content={value} />
   ));
