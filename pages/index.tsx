@@ -4,7 +4,15 @@ import utilStyles from "../styles/utils.module.css";
 
 export default function Home({ allPostsData }) {
   return (
-    <Layout>
+    <Layout
+      metas={[
+        <meta
+          key="google-site-verification"
+          name="google-site-verification"
+          content="rbr68Nt3ykvHS24XXqyoUbLg3GrWmfS6vk_jcL1KC54"
+        />,
+      ]}
+    >
       <h1>About Me</h1>
       <p>
         Hello 👋 I'm a software engineer working at Google. I'm originally from
