@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(18, 21, 31);
-  min-height: 140px;
+  background-color: rgb(16, 19, 31);
+  min-height: 128px;
   z-index: 3;
   position: relative;
 }
@@ -13,7 +13,7 @@
 }
 
 .name {
-  font-size: min(2.1rem, 5vw);
+  font-size: min(1.8rem, 5vw);
   
   line-height: 1.4;
   margin: 0.1rem;
@@ -35,8 +35,8 @@
 .navlinks,
 .navlinks a {
   text-align: right;
-  color: white;
-  font-size: min(1.3rem, 4.5vw);
+  color: var(--text-color);
+  font-size: min(1.25rem, 4.5vw);
 }
 
 .grow:hover {

@@ -34,7 +34,7 @@ function scrollPastHeaderIfNoSubLink() {
     const pageIsPost = document.URL.includes("/posts/");
     const noSubLink = !document.URL.includes("#");
     // From header.module.css header style.
-    const headerVerticalSize = 140;
+    const headerVerticalSize = 128;
 
     if (pageIsPost && noSubLink) {
       scroll(0, headerVerticalSize);

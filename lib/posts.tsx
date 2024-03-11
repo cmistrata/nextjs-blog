@@ -79,7 +79,7 @@ async function convertToHtmlString(markdownString: string): Promise<string> {
     .use(remarkGfm) // Support GFM (tables, autolinks, tasklists, strikethrough)
     .use(remarkToc, { tight: true }) // add toc
     .use(remarkPrism) // highlight code blocks
-    .use(remarkMath)
+    .use(remarkMath, { singleDollarTextMath: false })
     .use(remarkRehype, { allowDangerousHtml: true }) // convert mdast to hast (html abstract syntax tree)
     .use(rehypeMathjax)
     .use(rehypeSlug) // add ids to header elements

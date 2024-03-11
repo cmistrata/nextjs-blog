@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
-import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "./header";
 import CloudIcon from "@mui/icons-material/Cloud";
@@ -105,12 +104,12 @@ export default function Layout({
       </div>
 
       {/* content */}
-      <Paper className={styles.container} elevation={3}>
+      <div className={styles.content}>
         <Header />
         <main>
           <article> {children} </article>
         </main>
-      </Paper>
+      </div>
     </ThemeProvider>
   );
 }
