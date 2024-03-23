@@ -263,7 +263,7 @@ an actual algorithm.
 
 <img src="/images/linear_programming/starting_point.png" alt="Robot standing at point A=0, B=0">
 
-For our Brewer's problem instance:
+For our problem instance:
 
 - $$A + B + LC = 4$$
 - $$A + 4B + LW = 12$$
