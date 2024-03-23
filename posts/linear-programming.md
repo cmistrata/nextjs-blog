@@ -7,8 +7,8 @@ description: "Using skating as an analogy to understand linear programming, a br
 ---
 
 [Linear programming](https://en.wikipedia.org/wiki/Linear_programming) is an algorithm that solves the general problem of maximizing
-a linear outcome given linear constraints. This includes the very broad category of problems "Given a limited of resources, objectives using those resources, and a value for each objective, how can I output objectives to maximize value?". What exactly does this mean though, and how can we solve these kinds of problems? Let's go over it, using skating downhill as an analogy to
-help us understand both what these problems look like and what solving them looks like.
+a linear outcome given linear constraints. This includes the very broad category of problem "given a limited amount of resources and objectives using those resources, how can I output objectives to maximize value?". What exactly does this mean and how can we solve these kinds of problems? Let's go over it, using skating downhill as an analogy to
+help us understand both what these problems look like and how to find optimal solutions for them.
 
 ## ToC
 
