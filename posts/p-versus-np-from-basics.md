@@ -61,15 +61,15 @@ As a simple example, **linear complexity** is a time complexity class grouping p
 
 Harder problems in this category can often be solved by trying combinations of input elements with a constant size. For example, say you have a list of N numbers, and you want to find 3 numbers in the list that add up to 17. You could check every combination of 3 numbers in the list (N<sup>3</sup> combinations) until you find a combination that adds to 17, putting this problem in P time.
 
-### NP (non-deterministic polynomial time)
+### NP (nondeterministic polynomial time)
 
-**NP** is short for **non-deterministic polynomial time** (and _not_ "not polynomial time" which you might guess). These are problems that can be solved in polynomial time by a [non-deterministic Turing machine](https://en.wikipedia.org/wiki/Nondeterministic_Turing_machine).
+**NP** is short for **nondeterministic polynomial time** (and _not_ "not polynomial time" which you might guess). These are problems that can be solved in polynomial time by a [nondeterministic Turing machine](https://en.wikipedia.org/wiki/Nondeterministic_Turing_machine).
 
-A **non-deterministic Turing machine** is a computer that can explore multiple solutions simultaneously. For example, say you want to find a route through a corn maze; when you reach a branching path in the maze, you could clone yourself and try out both paths, and keep doing this every time you reach a new branch in the maze until one of your clones finds the exit. Obviously this is not actually possible, but it would be nice, and you could probably set a corn maze world record or something among other benefits.
+A **nondeterministic Turing machine** is a computer that can explore multiple solutions simultaneously. For example, say you want to find a route through a corn maze; when you reach a branching path in the maze, you could clone yourself and try out both paths, and keep doing this every time you reach a new branch in the maze until one of your clones finds the exit. Obviously this is not actually possible, but it would be nice, and you could probably set a corn maze world record or something among other benefits.
 
-It can be easier to think about a non-deterministic Turing machine as a deterministic Turing machine that always gets as lucky as possible, which is an equivalent definition. Consequentially, you can think of NP (non-deterministic polynomial time) problems as being solvable in polynomial time as long as you're as lucky as possible when running the algorithm.
+It can be easier to think about a nondeterministic Turing machine as a deterministic Turing machine that always gets as lucky as possible, which is an equivalent definition. Consequentially, you can think of NP (nondeterministic polynomial time) problems as being solvable in polynomial time as long as you're as lucky as possible when running the algorithm.
 
-Take the problem from earlier about finding three numbers in a list that add to 17. A non-deterministic solver would just pick three numbers from the list, and because they're lucky they end up being the right three numbers!
+Take the problem from earlier about finding three numbers in a list that add to 17. A nondeterministic solver would just pick three numbers from the list, and because they're lucky they end up being the right three numbers!
 
 However, no matter how lucky you are when solving a problem, you still need to verify the solution you come up with is correct. In fact, this ends up becoming the only amount of time you need to spend solving any problem. For our problem of finding 3 numbers that sum to 17, this would be the time it takes to add 3 numbers. **So equivalently and more simply, NP describes problems with solutions that can be verified in polynomial time.**
 
